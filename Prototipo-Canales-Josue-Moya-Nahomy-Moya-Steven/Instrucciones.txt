@@ -1,0 +1,12 @@
+Para acceder a la vista de:
+
+a. Administrador: coloque la palabra "admin" en nombre de usuario
+b. Banda: coloque la palabra "banda" en nombre de usuario
+c. Cliente: coloque la palabra "cliente" en nombre de usuario
+
+Notas:
+
++ La banda cuyo es nombre es "Cöld Winter" tiene implementada la pantalla del perfil. Las demás no.
++ Las siguientes noticias tienen implementada la pantalla de notcias:
+	-Bandas más homofóbicas...
+	-Lobo desgarra cuello de...
