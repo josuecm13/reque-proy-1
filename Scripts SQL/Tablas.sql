@@ -66,10 +66,36 @@ create table Rating
 create table Product
 (
 	id numeric(10) identity(1,1) constraint product_pk primary key,
-	band varchar(30) constraint rating_band_fk references band(username),
+	band varchar(30) constraint product_band_fk references band(username),
 	name varchar(50) constraint product_name_nn not null,
 	type varchar(30) constraint product_type_nn not null,
 	stock numeric(5) constraint product_stock_nn not null,
 	price float constraint product_price_nn not null,
 	content varbinary(max) null
+)
+
+create table Bill
+(
+	client varchar(30) constraint bill_client_fk references Client (username),
+	product numeric(10) constraint bill_product_fk references Product(id),
+	date datetime,
+	constraint bill_pk primary key (client,product,date),
+	quantity numeric(5) constraint bill_quantity_nn not null,
+)
+
+create table Event 
+(
+	date datetime,
+	band varchar(30) constraint event_band_fk references Band (username),
+	constraint event_pk primary key (date,band),
+	location varchar(100) constraint event_location_nn not null,
+	description varchar(500) constraint event_description_nn not null
+)
+
+create table SneakPeek
+(
+	id numeric(10) identity (1,1) constraint sneakpeek_pk primary key,
+	band varchar(30) constraint seneakpeek_band_dk references Band (username),
+	name varchar(50) constraint sneakpeek_name_nn not null,
+	content varbinary(max) constraint sneakpeek_nn not null
 )
