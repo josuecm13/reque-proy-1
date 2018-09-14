@@ -40,7 +40,18 @@ create table News
 create table Comment
 (
 	author varchar(30),
+	news_date datetime,
+	comment varchar(1000) constraint comment_comment_nn not null,
 	date datetime,
-	constraint comment
-
+	constraint comment_fk foreign key (author,news_date) references News(author,date),
+	constraint comment_pk primary key (author,news_date, date)
 )
+
+create table FavoriteBand
+(
+	band varchar(30) constraint band_fk references Band (username),
+	client varchar(30) constraint client_fk references Band (username),
+	constraint favoriteband_pk primary key (band,client)
+)
+
+create table c
