@@ -50,8 +50,26 @@ create table Comment
 create table FavoriteBand
 (
 	band varchar(30) constraint band_fk references Band (username),
-	client varchar(30) constraint client_fk references Band (username),
+	client varchar(30) constraint client_fk references Client (username),
 	constraint favoriteband_pk primary key (band,client)
 )
 
-create table c
+create table Rating
+(
+	band varchar(30) constraint rating_band_fk references Band (username),
+	client varchar(30) constraint rating_client_fk references Client (username),
+	constraint raiting_pk primary key (band,client),
+	date datetime constraint rainting_date_nn not null,
+	rating numeric(1) constraint rating_rating_nn not null
+)
+
+create table Product
+(
+	id numeric(10) identity(1,1) constraint product_pk primary key,
+	band varchar(30) constraint rating_band_fk references band(username),
+	name varchar(50) constraint product_name_nn not null,
+	type varchar(30) constraint product_type_nn not null,
+	stock numeric(5) constraint product_stock_nn not null,
+	price float constraint product_price_nn not null,
+	content varbinary(max) null
+)
