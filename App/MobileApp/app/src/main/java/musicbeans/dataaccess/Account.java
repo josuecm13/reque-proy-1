@@ -53,14 +53,17 @@ public class Account
         {
             try
             {
-                PreparedStatement pst = connection.prepareStatement("exec login_user ? ?");
+                PreparedStatement pst = connection.prepareStatement("{call login_user @username=?, @password=?}");
                 pst.setString(1,client.getUsername());
                 pst.setString(2,client.getPassword());
                 ResultSet rs = pst.executeQuery();
                 boolean exits = rs.next();
                 if(exits)
                 {
-
+                    String type = rs.getString("type");
+                    if(type.equals("Client"))return Status.CLIENT;
+                    if(type.equals("Admin"))return Status.ADMIN;
+                    if(type.equals("Band"))return Status.BAND;
                 }
                 else return Status.WRONG_CREDENTIALS;
 
