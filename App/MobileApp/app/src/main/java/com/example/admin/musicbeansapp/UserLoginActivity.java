@@ -1,5 +1,6 @@
 package com.example.admin.musicbeansapp;
 
+import android.net.Credentials;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 import musicbeans.dataaccess.Account;
 import musicbeans.dataaccess.Status;
 import musicbeans.entities.Client;
+import musicbeans.entities.Credential;
 
 public class UserLoginActivity extends AppCompatActivity {
 
@@ -68,6 +70,7 @@ public class UserLoginActivity extends AppCompatActivity {
             if(status== musicbeans.dataaccess.Status.CLIENT)
             {
                 Toast.makeText(getApplicationContext(),"Client", Toast.LENGTH_SHORT).show();
+                Credential.setCredentials(new Client());
             }
             if(status== musicbeans.dataaccess.Status.ADMIN)
             {
