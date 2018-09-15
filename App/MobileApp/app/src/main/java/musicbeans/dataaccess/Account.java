@@ -46,4 +46,30 @@ public class Account
         return Status.NETWORK_ERROR;
 
     }
+    public Status login(Client client)
+    {
+        Connection connection = Connector.getInstance().getConnection();
+        if(connection!=null)
+        {
+            try
+            {
+                PreparedStatement pst = connection.prepareStatement("exec login_user ? ?");
+                pst.setString(1,client.getUsername());
+                pst.setString(2,client.getPassword());
+                ResultSet rs = pst.executeQuery();
+                boolean exits = rs.next();
+                if(exits)
+                {
+
+                }
+                else return Status.WRONG_CREDENTIALS;
+
+            }
+            catch (SQLException e)
+            {
+                System.err.println(e.toString());
+            }
+        }
+        return Status.NETWORK_ERROR;
+    }
 }
