@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_posts_client"
+            android:icon="@drawable/ic_featured_play_list_black_24dp"
+            android:title="@string/noticias" />
+
+        <item
+            android:id="@+id/nav_bandlist"
+            android:icon="@drawable/ic_format_list_bulleted_black_24dp"
+            android:title="@string/lista_bandas" />
+
+        <item
+            android:id="@+id/nav_favband_client"
+            android:icon="@drawable/ic_favorite_black_24dp"
+            android:title="@string/bandas_favoritas" />
+    </group>
+
+    <item android:title="@string/account">
+        <menu>
+            <item
+                android:id="@+id/nav_logout"
+                android:icon="@drawable/ic_exit_to_app_black_24dp"
+                android:title="@string/log_out" />
+        </menu>
+    </item>
+
+
+</menu>

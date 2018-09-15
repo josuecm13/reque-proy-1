@@ -13,4 +13,13 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+    <string name="noticias">Noticias</string>
+    <string name="bandas_favoritas">Bandas favoritas</string>
+    <string name="lista_bandas">Lista de bandas</string>
+    <string name="log_out">Cerrar Sesión</string>
+    <string name="profile">Perfil</string>
+    <string name="lista_clientes">Lista de clientes</string>
+    <string name="account">Cuenta</string>
+    <string name="navigation_drawer_open">Abrir cajón de navegación</string>
+    <string name="navigation_drawer_close">Cerrar cajón de navegación</string>
 </resources>
