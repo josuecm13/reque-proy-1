@@ -70,7 +70,7 @@ public class UserLoginActivity extends AppCompatActivity {
             if(status== musicbeans.dataaccess.Status.CLIENT)
             {
                 Toast.makeText(getApplicationContext(),"Client", Toast.LENGTH_SHORT).show();
-                Credential.setCredentials(new Client());
+
             }
             if(status== musicbeans.dataaccess.Status.ADMIN)
             {

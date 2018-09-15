@@ -11,8 +11,9 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
-import com.example.admin.musicbeansapp.LoginActivity;
+import com.example.admin.musicbeansapp.UserLoginActivity;
 import com.example.admin.musicbeansapp.R;
+
 
 public class MainMenuActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
@@ -67,7 +68,7 @@ public class MainMenuActivity extends AppCompatActivity implements NavigationVie
                 break;
             case R.id.nav_logout:
                 Intent intent = new Intent(getApplicationContext(),
-                        LoginActivity.class);
+                        UserLoginActivity.class);
                 startActivityForResult(intent,0);
         }
         return true;
