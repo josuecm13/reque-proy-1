@@ -40,7 +40,6 @@ public class PostFragment extends Fragment {
 
     private RecyclerView recyclerView;
     PostAdapter adapter;
-    List<Object> posts;
 
     // TODO: Rename and change types of parameters
     private String mParam1;

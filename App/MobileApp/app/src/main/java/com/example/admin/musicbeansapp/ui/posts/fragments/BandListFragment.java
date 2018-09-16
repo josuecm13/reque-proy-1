@@ -40,7 +40,6 @@ public class BandListFragment extends Fragment {
     private OnFragmentInteractionListener mListener;
 
     RecyclerView recyclerView;
-    List<Band> bandList;
 
     public BandListFragment() {
         // Required empty public constructor
@@ -78,26 +77,15 @@ public class BandListFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_band_list, container, false);
 
-        bandList = new ArrayList<>();
         recyclerView = view.findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        filllist();
-
-        BandListAdapter adapter = new BandListAdapter(bandList);
+        BandListAdapter adapter = new BandListAdapter(musicbeans.dataaccess.Band.getBands());
         recyclerView.setAdapter(adapter);
 
         return view;
     }
 
-    private void filllist() {
-        bandList.add(new Band("a","letter a",(byte) 5,new byte[45],"sadha"));
-        bandList.add(new Band("b","letter b",(byte) 5,new byte[45],"sadha"));
-        bandList.add(new Band("c","letter c",(byte) 5,new byte[45],"sadha"));
-        bandList.add(new Band("d","letter d",(byte) 5,new byte[45],"sadha"));
-        bandList.add(new Band("e","letter e",(byte) 5,new byte[45],"sadha"));
-        bandList.add(new Band("f","letter f",(byte) 5,new byte[45],"sadha"));
-    }
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {

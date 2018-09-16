@@ -22,6 +22,6 @@ public abstract class Posts implements Comparable {
 
     @Override
     public int compareTo(@NonNull Object o) {
-        return 0;
+        return compareTo((Posts) o);
     }
 }

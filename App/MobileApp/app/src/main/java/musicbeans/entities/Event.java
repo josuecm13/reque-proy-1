@@ -7,9 +7,12 @@ public class Event extends Posts {
     private String location;
     private String title;
     private String description;
+
+
+
     private String banda;
 
-    public Event(Date date, String location, String title, String description) {
+    public Event(Date date, String location, String title, String description, String banda) {
         this.date = date;
         this.location = location;
         this.title = title;
@@ -42,5 +45,13 @@ public class Event extends Posts {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getBanda() {
+        return banda;
+    }
+
+    public void setBanda(String banda) {
+        this.banda = banda;
     }
 }
