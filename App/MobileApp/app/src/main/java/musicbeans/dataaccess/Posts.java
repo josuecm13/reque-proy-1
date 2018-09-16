@@ -55,12 +55,12 @@ public class Posts {
         if (connection != null) {
             try {
                 Statement pst = connection.createStatement();
-                ResultSet rs = pst.executeQuery("select * from News order by date desc");
+                ResultSet rs = pst.executeQuery("select title, body, author, date from News order by date desc");
                 while (rs.next()) {
-                    result.add(new NewsItem(rs.getString("title"), rs.getString("body"), rs.getBytes("photo"), rs.getString("author"), rs.getDate("date")));
+                    result.add(new NewsItem(rs.getString("title"), rs.getString("body"), null, rs.getString("author"), rs.getDate("date")));
                 }
                 pst = connection.createStatement();
-                rs = pst.executeQuery("select * from Event order by date desc");
+                rs = pst.executeQuery("select date,location,title,description from Event order by date desc");
                 while (rs.next()){
                     result.add(new Event(rs.getDate("date"),rs.getString("location"),rs.getString("title"),rs.getString("description")));
                 }

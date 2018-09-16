@@ -14,10 +14,6 @@
     </string>
 
     <string name="title_activity_login_user">LoginUserActivity</string>
-<<<<<<< HEAD
-=======
-    =======
->>>>>>> 6d5c33a96640e8d85175378405efa4880b7253be
     <string name="noticias">Noticias</string>
     <string name="bandas_favoritas">Bandas favoritas</string>
     <string name="lista_bandas">Lista de bandas</string>
@@ -25,20 +21,15 @@
     <string name="profile">Perfil</string>
     <string name="lista_clientes">Lista de clientes</string>
     <string name="account">Cuenta</string>
-<<<<<<< HEAD
-    <string name="navigation_drawer_open">Abrir cajón de navegación</string>
-    <string name="navigation_drawer_close">Cerrar cajón de navegación</string>s
     <string name="register">Registrarse</string>
     <string name="name">Nombre</string>
     <string name="username">Username</string>
     <string name="password">Contraseña</string>
     <string name="confirm_password">Confirmar contraseña</string>
-=======
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
->>>>>>> 6d5c33a96640e8d85175378405efa4880b7253be
 
 </resources>
