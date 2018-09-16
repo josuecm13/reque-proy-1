@@ -11,11 +11,13 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
+import com.example.admin.musicbeansapp.UserLoginActivity;
 import com.example.admin.musicbeansapp.R;
 import com.example.admin.musicbeansapp.ui.LoginActivity;
 import com.example.admin.musicbeansapp.ui.posts.fragments.BandListFragment;
 import com.example.admin.musicbeansapp.ui.posts.fragments.FavBandFragment;
 import com.example.admin.musicbeansapp.ui.posts.fragments.PostFragment;
+
 
 public class MainMenuActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
@@ -72,7 +74,7 @@ public class MainMenuActivity extends AppCompatActivity implements NavigationVie
                 break;
             case R.id.nav_logout:
                 Intent intent = new Intent(getApplicationContext(),
-                        LoginActivity.class);
+                        UserLoginActivity.class);
                 startActivityForResult(intent,0);
         }
         return true;

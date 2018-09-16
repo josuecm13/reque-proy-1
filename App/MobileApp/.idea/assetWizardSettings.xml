@@ -11,6 +11,13 @@
                   <entry key="vectorAssetStep">
                     <value>
                       <PersistentState>
+                        <option name="values">
+                          <map>
+                            <entry key="assetSourceType" value="FILE" />
+                            <entry key="outputName" value="ic_logo_sin_degradado" />
+                            <entry key="sourceFile" value="C:\Users\admin\Documents\LOGO_sin_degradado.svg" />
+                          </map>
+                        </option>
                         <option name="children">
                           <map>
                             <entry key="clipartAsset">
