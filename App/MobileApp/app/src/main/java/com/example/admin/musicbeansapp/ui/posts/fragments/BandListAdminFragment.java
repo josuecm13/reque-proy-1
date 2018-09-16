@@ -55,8 +55,8 @@ public class BandListAdminFragment extends Fragment {
      * @return A new instance of fragment BandListFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static BandListFragment newInstance(String param1, String param2) {
-        BandListFragment fragment = new BandListFragment();
+    public static BandListAdminFragment newInstance(String param1, String param2) {
+        BandListAdminFragment fragment = new BandListAdminFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -76,7 +76,7 @@ public class BandListAdminFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_band_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_band_list_admin, container, false);
 
         bandList = new ArrayList<>();
         recyclerView = view.findViewById(R.id.recycler_view);

@@ -12,9 +12,11 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.admin.musicbeansapp.ui.posts.MainMenuActivity;
+import com.example.admin.musicbeansapp.ui.posts.MainMenuAdmin;
 
 import musicbeans.dataaccess.Account;
 import musicbeans.dataaccess.Status;
+import musicbeans.entities.Administrator;
 import musicbeans.entities.Client;
 import musicbeans.entities.Credential;
 import musicbeans.entities.Sesion;
@@ -87,8 +89,12 @@ public class UserLoginActivity extends AppCompatActivity {
             }
             if(status== musicbeans.dataaccess.Status.ADMIN)
             {
+
                 Sesion.createInstance(user).setAccounType(status);
-                Toast.makeText(getApplicationContext(),"Admin", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getApplicationContext(),
+                        MainMenuAdmin.class);
+                startActivityForResult(intent,0);
+                //Toast.makeText(getApplicationContext(),"Admin", Toast.LENGTH_SHORT).show();
             }
             if(status== musicbeans.dataaccess.Status.BAND)
             {
