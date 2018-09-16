@@ -75,15 +75,17 @@ public class Account
 
     public Status login(Client client)
     {
-        Connection connection = Connector.getInstance().getConnection();
+        Connection connection = Connector.getConnection2();
+        PreparedStatement pst=null;
+        ResultSet rs = null;
         if(connection!=null)
         {
             try
             {
-                PreparedStatement pst = connection.prepareStatement("{call login_user @username=?, @password=?}");
+                pst = connection.prepareStatement("{call login_user @username=?, @password=?}");
                 pst.setString(1,client.getUsername());
                 pst.setString(2,client.getPassword());
-                ResultSet rs = pst.executeQuery();
+                rs = pst.executeQuery();
                 boolean exits = rs.next();
                 if(exits)
                 {
@@ -98,6 +100,13 @@ public class Account
             catch (SQLException e)
             {
                 System.err.println(e.toString());
+
+            }
+            finally
+            {
+                if (rs != null) try { rs.close(); } catch(Exception e) {}
+                if (pst != null) try { pst.close(); } catch(Exception e) {}
+                if (connection != null) try { connection.close(); } catch(Exception e) {}
             }
         }
         return Status.NETWORK_ERROR;
