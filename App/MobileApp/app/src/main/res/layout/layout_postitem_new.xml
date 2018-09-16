@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="7dp">
+
+    <ImageView
+        android:id="@+id/post_newsitem_thumbnail"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@mipmap/ic_launcher" />
+
+    <TextView
+        android:id="@+id/post_newsitem_title"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_toEndOf="@id/post_newsitem_thumbnail"
+        android:layout_toRightOf="@id/post_newsitem_thumbnail"
+        android:text="Titulo"
+        android:textColor="@color/colorPrimaryDark"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
+    <ImageView
+        android:id="@+id/post_newsitem_time_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/ic_access_time_black_24dp" />
+
+    <TextView
+        android:id="@+id/post_newsitem_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/post_newsitem_thumbnail"
+        android:layout_toLeftOf="@+id/post_newsitem_time_icon"
+        android:layout_toStartOf="@+id/post_newsitem_time_icon"
+        android:text="30/12/17" />
+
+    <TextView
+        android:id="@+id/post_newsitem_body"
+        android:layout_width="218dp"
+        android:layout_height="51dp"
+        android:layout_below="@id/post_newsitem_title"
+        android:layout_marginEnd="80dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="80dp"
+        android:layout_marginStart="20dp"
+        android:textColor="@color/colorPrimaryDark"
+        android:layout_toEndOf="@id/post_newsitem_thumbnail"
+        android:layout_toRightOf="@id/post_newsitem_thumbnail"
+        android:text="lkdsljfglfdjglfjglfjglkdfjglfjgljflgjlfkgjlfkjglfkjglkfjgjfkgkjfm..."
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+</RelativeLayout>
