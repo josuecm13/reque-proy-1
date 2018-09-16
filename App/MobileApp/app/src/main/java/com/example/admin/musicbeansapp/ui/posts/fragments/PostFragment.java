@@ -87,7 +87,7 @@ public class PostFragment extends Fragment {
         recyclerView =  view.findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        List<Posts> lista = musicbeans.dataaccess.Posts.getPosts();
+        List<Posts> lista = new musicbeans.dataaccess.Posts().getPosts();
         adapter = new PostAdapter(lista);
         recyclerView.setAdapter(adapter);
         return view;

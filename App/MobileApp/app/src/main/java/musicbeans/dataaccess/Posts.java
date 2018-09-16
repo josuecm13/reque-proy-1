@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -53,13 +54,13 @@ public class Posts {
         List<musicbeans.entities.Posts> result = new ArrayList<>();
         if (connection != null) {
             try {
-                PreparedStatement pst = connection.prepareStatement("select * from News order by date desc");
-                ResultSet rs = pst.executeQuery();
+                Statement pst = connection.createStatement();
+                ResultSet rs = pst.executeQuery("select * from News order by date desc");
                 while (rs.next()) {
                     result.add(new NewsItem(rs.getString("title"), rs.getString("body"), rs.getBytes("photo"), rs.getString("author"), rs.getDate("date")));
                 }
-                pst = connection.prepareStatement("select * from Event order by date desc");
-                rs = pst.executeQuery();
+                pst = connection.createStatement();
+                rs = pst.executeQuery("select * from Event order by date desc");
                 while (rs.next()){
                     result.add(new Event(rs.getDate("date"),rs.getString("location"),rs.getString("title"),rs.getString("description")));
                 }
