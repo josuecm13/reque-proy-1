@@ -43,7 +43,7 @@ public class MainMenuActivity extends AppCompatActivity implements NavigationVie
 
         if(savedInstanceState == null){
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                    new BandListFragment()).commit();
+                    new PostFragment()).commit();
             navigationView.setCheckedItem(R.id.nav_bandlist);
         }
 

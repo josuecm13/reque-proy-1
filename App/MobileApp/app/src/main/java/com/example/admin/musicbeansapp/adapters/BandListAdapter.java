@@ -13,6 +13,7 @@ import com.example.admin.musicbeansapp.R;
 import java.util.List;
 
 import musicbeans.entities.Band;
+import musicbeans.entities.Sesion;
 
 public class BandListAdapter extends RecyclerView.Adapter<BandListAdapter.BandHolder> {
 
@@ -33,12 +34,37 @@ public class BandListAdapter extends RecyclerView.Adapter<BandListAdapter.BandHo
     }
 
     @Override
-    public void onBindViewHolder(@NonNull BandHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final BandHolder holder, final int position) {
         holder.name.setText(bandList.get(position).getName());
-        if(!admin)
-            holder.fav.setImageResource(R.drawable.ic_favorite_black_24dp);
-        else
+        if(!admin){
+            if(musicbeans.dataaccess.Band.validateFavBand(bandList.get(position).getName(), Sesion.getInstance().getUsername()))
+                holder.fav.setImageResource(R.drawable.ic_favorite_black_24dp);
+            else
+                holder.fav.setImageResource(R.drawable.ic_favorite_border_black_24dp);
+            holder.fav.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    changeState(holder,position);
+                    return true;
+                }
+            });
+        }else
             holder.fav.setImageResource(R.drawable.ic_delete_black_24dp);
+    }
+
+    private void changeState(BandHolder holder, int position) {
+        if(!admin) {
+            if (musicbeans.dataaccess.Band.validateFavBand(bandList.get(position).getName(), Sesion.getInstance().getUsername())) {
+                musicbeans.dataaccess.Band.removeFavorite(bandList.get(position).getName(), Sesion.getInstance().getUsername());
+                holder.fav.setImageResource(R.drawable.ic_favorite_border_black_24dp);
+            } else {
+                musicbeans.dataaccess.Band.addFavorite(bandList.get(position).getName(), Sesion.getInstance().getUsername());
+                holder.fav.setImageResource(R.drawable.ic_favorite_black_24dp);
+            }
+        }
+        else{
+            // TODO: Delete Band Account
+        }
     }
 
     @Override

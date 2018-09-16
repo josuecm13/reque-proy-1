@@ -76,8 +76,8 @@ public class PostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
         }else{
             final Event event = (Event) posts.get(position);
             ((PostEventHolder)holder).event.setText(event.getTitle());
-            ((PostEventHolder)holder).info.setText("Parque Viva, 30/12/21 6 p.m.");
-            //((PostEventHolder)holder).info.setText(event.getLocation()+","+event.getDate().toString());
+            ((PostEventHolder)holder).band.setText(event.getBanda());
+            ((PostEventHolder)holder).info.setText((event.getLocation() != null? event.getLocation() : "N/D")+","+ (event.getDate() != null? event.getDate().toString() : "N/D"));
         }
     }
 

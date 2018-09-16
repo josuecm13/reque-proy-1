@@ -3,7 +3,7 @@
   <component name="WizardSettings">
     <option name="children">
       <map>
-        <entry key="imageWizard">
+        <entry key="vectorWizard">
           <value>
             <PersistentState />
           </value>
@@ -23,7 +23,12 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
+<<<<<<< HEAD
                                       <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/content/ic_add_black_24dp.xml" />
+=======
+                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/action/ic_favorite_border_black_24dp.xml" />
+                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/action/ic_delete_black_24dp.xml" />
+>>>>>>> 5896502136ed34de73874a2e6d0967e56cc60046
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -33,9 +38,17 @@
                         </option>
                         <option name="values">
                           <map>
+<<<<<<< HEAD
                             <entry key="color" value="fdfdfe" />
                             <entry key="outputName" value="ic_add_black_24dp" />
                             <entry key="sourceFile" value="C:\Users\admin" />
+=======
+                            <entry key="color" value="961212" />
+                            <entry key="outputName" value="ic_favorite_border_black_24dp" />
+                            <entry key="sourceFile" value="C:\Users\jd_cm" />
+                            <entry key="outputName" value="ic_delete_black_24dp" />
+                            <entry key="sourceFile" value="C:\Users\jd_cm" />
+>>>>>>> 5896502136ed34de73874a2e6d0967e56cc60046
                           </map>
                         </option>
                       </PersistentState>
