@@ -93,7 +93,7 @@
             style="@style/button_style"
             android:text="@string/register"
             android:textAllCaps="false"
-            android:onClick="insertUser"/>
+            android:onClick="insertBand"/>
     </LinearLayout>
 
 </RelativeLayout>

@@ -1,8 +1,10 @@
 package com.example.admin.musicbeansapp.ui.posts.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,11 +14,14 @@ import android.view.ViewGroup;
 
 import com.example.admin.musicbeansapp.adapters.BandListAdapter;
 import com.example.admin.musicbeansapp.R;
+import com.example.admin.musicbeansapp.ui.bands.InsertBand;
+import com.example.admin.musicbeansapp.ui.posts.MainMenuActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import musicbeans.entities.Band;
+import musicbeans.entities.Sesion;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -87,19 +92,31 @@ public class BandListAdminFragment extends Fragment {
         BandListAdapter adapter = new BandListAdapter(bandList,true);
 
         recyclerView.setAdapter(adapter);
-
+        FloatingActionButton btn = (FloatingActionButton)view.findViewById(R.id.newBand);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                newBand(view);
+            }
+        });
         return view;
     }
 
     private void filllist() {
-        bandList.add(new Band("a","letter a",(byte) 5,new byte[45],"sadha"));
-        bandList.add(new Band("b","letter b",(byte) 5,new byte[45],"sadha"));
-        bandList.add(new Band("c","letter c",(byte) 5,new byte[45],"sadha"));
-        bandList.add(new Band("d","letter d",(byte) 5,new byte[45],"sadha"));
-        bandList.add(new Band("e","letter e",(byte) 5,new byte[45],"sadha"));
-        bandList.add(new Band("f","letter f",(byte) 5,new byte[45],"sadha"));
+        bandList.add(new Band("a","",null,"","letter a",(byte) 5,new byte[45],"sadha"));
+        bandList.add(new Band("a","",null,"","letter a",(byte) 5,new byte[45],"sadha"));
+        bandList.add(new Band("a","",null,"","letter a",(byte) 5,new byte[45],"sadha"));
+        bandList.add(new Band("a","",null,"","letter a",(byte) 5,new byte[45],"sadha"));
+        bandList.add(new Band("a","",null,"","letter a",(byte) 5,new byte[45],"sadha"));
+        bandList.add(new Band("a","",null,"","letter a",(byte) 5,new byte[45],"sadha"));
     }
+    public void newBand(View v)
+    {
 
+        Intent intent = new Intent(getActivity(),
+                InsertBand.class);
+        startActivity(intent);
+    }
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
@@ -138,4 +155,6 @@ public class BandListAdminFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
+
 }

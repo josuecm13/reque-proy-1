@@ -35,7 +35,7 @@ public class BandListAdapter extends RecyclerView.Adapter<BandListAdapter.BandHo
 
     @Override
     public void onBindViewHolder(@NonNull final BandHolder holder, final int position) {
-        holder.name.setText(bandList.get(position).getName());
+        holder.name.setText(bandList.get(position).getUsername());
         if(!admin){
             if(musicbeans.dataaccess.Band.validateFavBand(bandList.get(position).getName(), Sesion.getInstance().getUsername()))
                 holder.fav.setImageResource(R.drawable.ic_favorite_black_24dp);

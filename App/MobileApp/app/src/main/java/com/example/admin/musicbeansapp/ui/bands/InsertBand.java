@@ -36,7 +36,7 @@ public class InsertBand extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_register);
+        setContentView(R.layout.activity_insert_band);
         username = (EditText)findViewById(R.id.txtUsername);
         password = (EditText)findViewById(R.id.txtPassword);
         confirm = (EditText)findViewById(R.id.txtConfirm);
