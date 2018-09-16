@@ -40,7 +40,7 @@ public class BandListAdapter extends RecyclerView.Adapter<BandListAdapter.BandHo
             if(musicbeans.dataaccess.Band.validateFavBand(bandList.get(position).getName(), Sesion.getInstance().getUsername()))
                 holder.fav.setImageResource(R.drawable.ic_favorite_black_24dp);
             else
-                holder.fav.setImageResource(R.drawable.ic_favorite_border_black_24dp);
+                holder.fav.setImageResource(R.drawable.ic_favorite_border_black_24dp_);
             holder.fav.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {
@@ -56,7 +56,7 @@ public class BandListAdapter extends RecyclerView.Adapter<BandListAdapter.BandHo
         if(!admin) {
             if (musicbeans.dataaccess.Band.validateFavBand(bandList.get(position).getName(), Sesion.getInstance().getUsername())) {
                 musicbeans.dataaccess.Band.removeFavorite(bandList.get(position).getName(), Sesion.getInstance().getUsername());
-                holder.fav.setImageResource(R.drawable.ic_favorite_border_black_24dp);
+                holder.fav.setImageResource(R.drawable.ic_favorite_border_black_24dp_);
             } else {
                 musicbeans.dataaccess.Band.addFavorite(bandList.get(position).getName(), Sesion.getInstance().getUsername());
                 holder.fav.setImageResource(R.drawable.ic_favorite_black_24dp);

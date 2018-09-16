@@ -33,7 +33,8 @@
         </activity>
         <activity android:name=".UserRegister" />
         <activity android:name=".ui.posts.MainMenuAdmin" />
-        <activity android:name=".ui.posts.fragments.BandListAdminFragment"></activity>
+        <activity android:name=".ui.posts.fragments.BandListAdminFragment" />
+        <activity android:name=".ui.bands.InsertBand"></activity>
     </application>
 
 </manifest>

@@ -23,7 +23,8 @@ public class Band {
                 pst = connection.createStatement();
                 rs = pst.executeQuery("Select * from Band order by username");
                 while (rs.next()) {
-                    result.add(new musicbeans.entities.Band(rs.getString("username"),
+                    result.add(new musicbeans.entities.Band(rs.getString("username"),"",
+                            null,"",
                             rs.getString("description"),rs.getByte("rating"),
                             rs.getBytes("banner_photo"),"gege"));
                 }
