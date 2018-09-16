@@ -127,9 +127,10 @@ public class Account
                 pst.setString(2,band.getPassword());
                 pst.executeUpdate();
 
-                pst = connection.prepareStatement("insert into Client values (?,?)");
-                pst.setString(1,client.getUsername());
-                pst.setString(2,client.getName());
+                pst = connection.prepareStatement("insert into Band (username,description,rating) values (?,?,?)");
+                pst.setString(1,band.getUsername());
+                pst.setString(2,band.getDescription());
+                pst.setByte(3,band.getRate());
                 pst.executeUpdate();
                 return Status.REGISTERED;
             } catch (Exception e)

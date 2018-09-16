@@ -62,12 +62,7 @@
            </LinearLayout>
 
         </LinearLayout>
-        <EditText
-            android:id="@+id/txtName"
-            style="@style/editText_style"
-            android:background="@drawable/border"
-            android:hint="@string/name"
-            android:inputType="textPersonName" />
+
         <EditText
             android:id="@+id/txtUsername"
             style="@style/editText_style"

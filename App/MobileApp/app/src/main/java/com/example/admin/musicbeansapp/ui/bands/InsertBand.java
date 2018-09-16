@@ -37,7 +37,6 @@ public class InsertBand extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_register);
-        name = (EditText)findViewById(R.id.txtName);
         username = (EditText)findViewById(R.id.txtUsername);
         password = (EditText)findViewById(R.id.txtPassword);
         confirm = (EditText)findViewById(R.id.txtConfirm);
@@ -106,14 +105,9 @@ public class InsertBand extends AppCompatActivity {
             confirm.setError("Campo requerido");
             _continue=false;
         }
-        if(name.getText().toString().trim().isEmpty())
-        {
-            name.setError("Campo requerido");
-            _continue=false;
-        }
         if(description.getText().toString().trim().isEmpty())
         {
-            name.setError("Campo requerido");
+            description.setError("Campo requerido");
             _continue=false;
         }
         if(!confirm.getText().toString().equals(password.getText().toString()))
@@ -124,8 +118,8 @@ public class InsertBand extends AppCompatActivity {
 
         if(_continue)
         {
-            RegisterUser registerUser = new RegisterUser();
-            registerUser.execute(username.getText().toString(),username.getText().toString(),password.getText().toString());
+            RegisterBand registerBand = new RegisterBand();
+            registerBand.execute(username.getText().toString(),password.getText().toString(),description.getText().toString());
         }
     }
     private byte[] getBytes(Uri uri)
@@ -157,14 +151,13 @@ public class InsertBand extends AppCompatActivity {
         protected musicbeans.dataaccess.Status doInBackground(Object... fields)
         {
             musicbeans.dataaccess.Status status =null;
-            String name = (String) fields[0];
-            String user = (String )fields[1];
-            String password = (String) fields[2];
-            String description = (String) fields[3];
+            String user = (String) fields[0];
+            String password = (String )fields[1];
+            String description = (String) fields[2];
             byte[] photo = getBytes(path);
             byte[] banner = getBytes(path_banner);
             Account account = new Account();
-            status = account.registerClient(new Band(user, password, photo, name, description, (byte) 5, banner));
+            status = account.registerBand(new Band(user, password, photo, "", description, (byte) 5, banner));
             return status;
         }
         protected void onPostExecute(musicbeans.dataaccess.Status status)
