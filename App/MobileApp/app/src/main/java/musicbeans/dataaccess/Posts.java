@@ -50,24 +50,32 @@ public class Posts {
     }
 
     public static List<musicbeans.entities.Posts> getPosts() {
-        Connection connection = Connector.getInstance().getConnection();
+        Connection connection = Connector.getConnection2();
+        Statement pst=null;
+        ResultSet rs=null;
         List<musicbeans.entities.Posts> result = new ArrayList<>();
         if (connection != null) {
             try {
-                Statement pst = connection.createStatement();
-                ResultSet rs = pst.executeQuery("select * from News order by date desc");
+                pst = connection.createStatement();
+                rs = pst.executeQuery("select * from News order by date desc");
                 while (rs.next()) {
                     result.add(new NewsItem(rs.getString("title"), rs.getString("body"), rs.getBytes("photo"), rs.getString("author"), rs.getDate("date")));
                 }
                 pst = connection.createStatement();
                 rs = pst.executeQuery("select * from Event order by date desc");
                 while (rs.next()){
-                    result.add(new Event(rs.getDate("date"),rs.getString("location"),rs.getString("title"),rs.getString("description")));
+                    result.add(new Event(rs.getDate("date"),rs.getString("location"),rs.getString("Title"),rs.getString("description")));
                 }
                 Collections.sort(result);
-            }  catch (SQLException e)
+            }  catch (Exception e)
             {
                 System.err.println(e.toString());
+            }
+            finally
+            {
+                if (rs != null) try { rs.close(); } catch(Exception e) {}
+                if (pst != null) try { pst.close(); } catch(Exception e) {}
+                if (connection != null) try { connection.close(); } catch(Exception e) {}
             }
         }
         return result;
