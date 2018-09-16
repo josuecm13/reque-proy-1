@@ -26,7 +26,7 @@ import musicbeans.entities.Band;
  * Use the {@link BandListFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class BandListFragment extends Fragment {
+public class BandListAdminFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -42,7 +42,7 @@ public class BandListFragment extends Fragment {
     RecyclerView recyclerView;
     List<Band> bandList;
 
-    public BandListFragment() {
+    public BandListAdminFragment() {
         // Required empty public constructor
     }
 
@@ -84,7 +84,7 @@ public class BandListFragment extends Fragment {
 
         filllist();
 
-        BandListAdapter adapter = new BandListAdapter(bandList);
+        BandListAdapter adapter = new BandListAdapter(bandList,true);
 
         recyclerView.setAdapter(adapter);
 

@@ -17,10 +17,13 @@ import musicbeans.entities.Band;
 public class BandListAdapter extends RecyclerView.Adapter<BandListAdapter.BandHolder> {
 
     private List<Band> bandList;
+    private boolean admin=false;
 
     public BandListAdapter(List<Band> bandList) {
         this.bandList = bandList;
     }
+
+    public BandListAdapter(List<Band> bandList,boolean admin){this.bandList=bandList;this.admin=admin;}
 
     @NonNull
     @Override
@@ -32,7 +35,10 @@ public class BandListAdapter extends RecyclerView.Adapter<BandListAdapter.BandHo
     @Override
     public void onBindViewHolder(@NonNull BandHolder holder, int position) {
         holder.name.setText(bandList.get(position).getName());
-        holder.fav.setImageResource(R.drawable.ic_favorite_black_24dp);
+        if(!admin)
+            holder.fav.setImageResource(R.drawable.ic_favorite_black_24dp);
+        else
+            holder.fav.setImageResource(R.drawable.ic_delete_black_24dp);
     }
 
     @Override
