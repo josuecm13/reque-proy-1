@@ -18,10 +18,13 @@ import musicbeans.entities.Sesion;
 public class BandListAdapter extends RecyclerView.Adapter<BandListAdapter.BandHolder> {
 
     private List<Band> bandList;
+    private boolean admin=false;
 
     public BandListAdapter(List<Band> bandList) {
         this.bandList = bandList;
     }
+
+    public BandListAdapter(List<Band> bandList,boolean admin){this.bandList=bandList;this.admin=admin;}
 
     @NonNull
     @Override
@@ -33,26 +36,34 @@ public class BandListAdapter extends RecyclerView.Adapter<BandListAdapter.BandHo
     @Override
     public void onBindViewHolder(@NonNull final BandHolder holder, final int position) {
         holder.name.setText(bandList.get(position).getName());
-        if(musicbeans.dataaccess.Band.validateFavBand(bandList.get(position).getName(), Sesion.getInstance().getUsername()))
-            holder.fav.setImageResource(R.drawable.ic_favorite_black_24dp);
-        else
-            holder.fav.setImageResource(R.drawable.ic_favorite_border_black_24dp);
-        holder.fav.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View view) {
-                changeState(holder,position);
-                return true;
-            }
-        });
+        if(!admin){
+            if(musicbeans.dataaccess.Band.validateFavBand(bandList.get(position).getName(), Sesion.getInstance().getUsername()))
+                holder.fav.setImageResource(R.drawable.ic_favorite_black_24dp);
+            else
+                holder.fav.setImageResource(R.drawable.ic_favorite_border_black_24dp);
+            holder.fav.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    changeState(holder,position);
+                    return true;
+                }
+            });
+        }else
+            holder.fav.setImageResource(R.drawable.ic_delete_black_24dp);
     }
 
     private void changeState(BandHolder holder, int position) {
-        if(musicbeans.dataaccess.Band.validateFavBand(bandList.get(position).getName(),Sesion.getInstance().getUsername())){
-            musicbeans.dataaccess.Band.removeFavorite(bandList.get(position).getName(),Sesion.getInstance().getUsername());
-            holder.fav.setImageResource(R.drawable.ic_favorite_border_black_24dp);
-        }else{
-            musicbeans.dataaccess.Band.addFavorite(bandList.get(position).getName(),Sesion.getInstance().getUsername());
-            holder.fav.setImageResource(R.drawable.ic_favorite_black_24dp);
+        if(!admin) {
+            if (musicbeans.dataaccess.Band.validateFavBand(bandList.get(position).getName(), Sesion.getInstance().getUsername())) {
+                musicbeans.dataaccess.Band.removeFavorite(bandList.get(position).getName(), Sesion.getInstance().getUsername());
+                holder.fav.setImageResource(R.drawable.ic_favorite_border_black_24dp);
+            } else {
+                musicbeans.dataaccess.Band.addFavorite(bandList.get(position).getName(), Sesion.getInstance().getUsername());
+                holder.fav.setImageResource(R.drawable.ic_favorite_black_24dp);
+            }
+        }
+        else{
+            // TODO: Delete Band Account
         }
     }
 
