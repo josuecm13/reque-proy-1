@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".UserRegister"
+    android:background="@color/colorPrimaryDark">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="50dp"
+        android:layout_marginRight="34dp"
+        android:layout_marginLeft="34dp">
+
+        <ImageView
+            android:id="@+id/imgPhoto"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:layout_gravity="center"
+            android:background="@drawable/image" />
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Subir foto"
+            style="@style/textView_style"
+            android:layout_marginBottom="15dp"
+            android:onClick="uploadPhoto"/>
+        <EditText
+            android:id="@+id/txtName"
+            style="@style/editText_style"
+            android:background="@drawable/border"
+            android:hint="Username"
+            android:inputType="textPersonName" />
+        <EditText
+            android:id="@+id/txtUsername"
+            style="@style/editText_style"
+            android:background="@drawable/border"
+            android:hint="@string/username"
+            android:inputType="textPersonName" />
+        <EditText
+            android:id="@+id/txtPassword"
+            style="@style/editText_style"
+            android:background="@drawable/border"
+            android:hint="@string/password"
+            android:inputType="textPassword" />
+
+        <EditText
+            android:id="@+id/txtConfirm"
+            style="@style/editText_style"
+            android:background="@drawable/border"
+            android:hint="@string/confirm_password"
+            android:inputType="textPassword" />
+        <Button
+            android:id="@+id/btnLogin"
+            style="@style/button_style"
+            android:text="@string/register"
+            android:textAllCaps="false"
+            android:onClick="insertUser"/>
+    </LinearLayout>
+
+</RelativeLayout>

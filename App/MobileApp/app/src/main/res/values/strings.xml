@@ -10,12 +10,10 @@
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
-    <string name="permission_rationale">"Contacts permissions are needed for providing email
-        completions."
+    <string name="permission_rationale">"Contacts permissions are needed for providing email completions."
     </string>
 
     <string name="title_activity_login_user">LoginUserActivity</string>
-=======
     <string name="noticias">Noticias</string>
     <string name="bandas_favoritas">Bandas favoritas</string>
     <string name="lista_bandas">Lista de bandas</string>
@@ -24,6 +22,11 @@
     <string name="lista_clientes">Lista de clientes</string>
     <string name="account">Cuenta</string>
     <string name="navigation_drawer_open">Abrir cajón de navegación</string>
-    <string name="navigation_drawer_close">Cerrar cajón de navegación</string>
+    <string name="navigation_drawer_close">Cerrar cajón de navegación</string>s
+    <string name="register">Registrarse</string>
+    <string name="name">Nombre</string>
+    <string name="username">Username</string>
+    <string name="password">Contraseña</string>
+    <string name="confirm_password">Confirmar contraseña</string>
 
 </resources>

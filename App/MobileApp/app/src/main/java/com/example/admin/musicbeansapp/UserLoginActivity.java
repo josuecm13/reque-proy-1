@@ -1,5 +1,6 @@
 package com.example.admin.musicbeansapp;
 
+import android.content.Intent;
 import android.net.Credentials;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
@@ -47,6 +48,10 @@ public class UserLoginActivity extends AppCompatActivity {
             LoginUser loginUser = new LoginUser();
             loginUser.execute(username.getText().toString(),password.getText().toString());
         }
+    }
+    public void registerAction(View v)
+    {
+        startActivity(new Intent(UserLoginActivity.this,UserRegister.class));
     }
 
     class LoginUser extends AsyncTask<String,Void,Status>
