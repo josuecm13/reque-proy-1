@@ -1,4 +1,4 @@
-package com.example.admin.musicbeansapp.posts;
+package com.example.admin.musicbeansapp.ui.posts.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;

@@ -1,10 +1,10 @@
-package com.example.admin.musicbeansapp;
+package com.example.admin.musicbeansapp.ui;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.os.StrictMode;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -29,6 +29,9 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.example.admin.musicbeansapp.R;
+import com.example.admin.musicbeansapp.ui.posts.MainMenuActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -334,7 +337,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             showProgress(false);
 
             if (success) {
-                finish();
+
+                // TODO: open an specific account
+
+                Intent intent = new Intent(getApplicationContext(), MainMenuActivity.class);
+                startActivityForResult(intent,0);
+
+                //finish();
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();

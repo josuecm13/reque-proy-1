@@ -1,4 +1,4 @@
-package com.example.admin.musicbeansapp.posts;
+package com.example.admin.musicbeansapp.ui.posts;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -11,8 +11,11 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
-import com.example.admin.musicbeansapp.LoginActivity;
 import com.example.admin.musicbeansapp.R;
+import com.example.admin.musicbeansapp.ui.LoginActivity;
+import com.example.admin.musicbeansapp.ui.posts.fragments.BandListFragment;
+import com.example.admin.musicbeansapp.ui.posts.fragments.FavBandFragment;
+import com.example.admin.musicbeansapp.ui.posts.fragments.PostFragment;
 
 public class MainMenuActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
@@ -28,7 +31,7 @@ public class MainMenuActivity extends AppCompatActivity implements NavigationVie
 
         drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
-        //navigationView.setNavigationItemSelectedListener(e ->());
+        navigationView.setNavigationItemSelectedListener(this);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -39,6 +42,8 @@ public class MainMenuActivity extends AppCompatActivity implements NavigationVie
                     new PostFragment()).commit();
             navigationView.setCheckedItem(R.id.nav_posts_client);
         }
+
+
     }
 
 

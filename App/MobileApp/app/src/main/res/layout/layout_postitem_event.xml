@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorAccent"
+    android:padding="15dp">
+
+    <TextView
+        android:id="@+id/post_item_title"
+        android:layout_width="158dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginStart="20dp"
+        android:text="Evento"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
+    <TextView
+        android:id="@+id/post_item_band"
+        android:layout_width="163dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="13dp"
+        android:layout_toRightOf="@id/post_item_title"
+        android:text="Banda"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Title" />
+
+    <TextView
+        android:id="@+id/post_item_body"
+        android:layout_width="218dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/post_item_title"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="80dp"
+        android:layout_marginStart="20dp"
+        android:text="texto de prueba..."
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="80dp" />
+
+</RelativeLayout>
