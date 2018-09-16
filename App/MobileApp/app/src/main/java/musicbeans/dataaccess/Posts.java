@@ -16,7 +16,7 @@ import musicbeans.entities.NewsItem;
 public class Posts {
 
     public static List<musicbeans.entities.Posts> getPosts(String sesion){
-        Connection connection =  Connector.getInstance().getConnection();
+        Connection connection =  Connector.getConnection2();
         List<musicbeans.entities.Posts> result = new ArrayList<>();
         if(connection != null){
             try{
@@ -59,10 +59,10 @@ public class Posts {
                 pst = connection.createStatement();
                 rs = pst.executeQuery("select * from News order by date desc");
                 while (rs.next()) {
-                    result.add(new NewsItem(rs.getString("title"), rs.getString("body"), rs.getBytes("photo"), rs.getString("author"), rs.getDate("date")));
+                    result.add(new NewsItem(rs.getString("title"), rs.getString("body"), null, rs.getString("author"), rs.getDate("date")));
                 }
                 pst = connection.createStatement();
-                rs = pst.executeQuery("select * from Event order by date desc");
+                rs = pst.executeQuery("select date,location,title,description from Event order by date desc");
                 while (rs.next()){
                     result.add(new Event(rs.getDate("date"),rs.getString("location"),rs.getString("Title"),rs.getString("description")));
                 }
