@@ -2,22 +2,18 @@ package musicbeans.entities;
 
 import java.sql.Date;
 
-public class Event {
+public class Event extends Posts {
 
-    private Date date;
     private String location;
     private String title;
     private String description;
+    private String banda;
 
     public Event(Date date, String location, String title, String description) {
         this.date = date;
         this.location = location;
         this.title = title;
         this.description = description;
-    }
-
-    public Date getDate() {
-        return date;
     }
 
     public void setDate(Date date) {

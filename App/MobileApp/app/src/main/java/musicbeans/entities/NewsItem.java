@@ -2,15 +2,14 @@ package musicbeans.entities;
 
 import java.sql.Date;
 
-public class NewsItem {
+public class NewsItem extends Posts {
     
     private String title;
     private String body;
     private byte[] img;
-    private Account author;
-    private Date date;
+    private String author;
 
-    public NewsItem(String title, String body, byte[] img, Account author, Date date) {
+    public NewsItem(String title, String body, byte[] img, String author, Date date) {
         this.title = title;
         this.body = body;
         this.img = img;
@@ -42,16 +41,12 @@ public class NewsItem {
         this.img = img;
     }
 
-    public Account getAuthor() {
+    public String getAuthor() {
         return author;
     }
 
-    public void setAuthor(Account author) {
+    public void setAuthor(String author) {
         this.author = author;
-    }
-
-    public Date getDate() {
-        return date;
     }
 
     public void setDate(Date date) {

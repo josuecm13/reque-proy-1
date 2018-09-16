@@ -46,6 +46,8 @@ public class Account
         return Status.NETWORK_ERROR;
 
     }
+
+
     public Status login(Client client)
     {
         Connection connection = Connector.getInstance().getConnection();

@@ -1,5 +1,6 @@
 package com.example.admin.musicbeansapp;
 
+import android.content.Intent;
 import android.net.Credentials;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
@@ -10,10 +11,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.admin.musicbeansapp.ui.posts.MainMenuActivity;
+
 import musicbeans.dataaccess.Account;
 import musicbeans.dataaccess.Status;
 import musicbeans.entities.Client;
 import musicbeans.entities.Credential;
+import musicbeans.entities.Sesion;
 
 public class UserLoginActivity extends AppCompatActivity {
 
@@ -51,6 +55,7 @@ public class UserLoginActivity extends AppCompatActivity {
 
     class LoginUser extends AsyncTask<String,Void,Status>
     {
+        String user;
         public LoginUser(){}
         protected musicbeans.dataaccess.Status doInBackground(String... fields)
         {
@@ -58,6 +63,7 @@ public class UserLoginActivity extends AppCompatActivity {
             String user = fields[0];
             String password = fields[1];
             Account account = new Account();
+            this.user = user;
             status = account.login(new Client(user,password,""));
             return status;
         }
@@ -69,15 +75,20 @@ public class UserLoginActivity extends AppCompatActivity {
             }
             if(status== musicbeans.dataaccess.Status.CLIENT)
             {
-                Toast.makeText(getApplicationContext(),"Client", Toast.LENGTH_SHORT).show();
-
+                Sesion.createInstance(user).setAccounType(status);
+                Intent intent = new Intent(getApplicationContext(),
+                        MainMenuActivity.class);
+                startActivityForResult(intent,0);
+                //Toast.makeText(getApplicationContext(),"Client", Toast.LENGTH_SHORT).show();
             }
             if(status== musicbeans.dataaccess.Status.ADMIN)
             {
+                Sesion.createInstance(user).setAccounType(status);
                 Toast.makeText(getApplicationContext(),"Admin", Toast.LENGTH_SHORT).show();
             }
             if(status== musicbeans.dataaccess.Status.BAND)
             {
+                Sesion.createInstance(user).setAccounType(status);
                 Toast.makeText(getApplicationContext(),"Band", Toast.LENGTH_SHORT).show();
             }
         }

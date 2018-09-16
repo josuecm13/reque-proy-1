@@ -1,6 +1,7 @@
 package com.example.admin.musicbeansapp.ui.posts;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -13,13 +14,14 @@ import android.view.MenuItem;
 
 import com.example.admin.musicbeansapp.UserLoginActivity;
 import com.example.admin.musicbeansapp.R;
-import com.example.admin.musicbeansapp.ui.LoginActivity;
 import com.example.admin.musicbeansapp.ui.posts.fragments.BandListFragment;
 import com.example.admin.musicbeansapp.ui.posts.fragments.FavBandFragment;
 import com.example.admin.musicbeansapp.ui.posts.fragments.PostFragment;
 
 
-public class MainMenuActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+public class MainMenuActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
+        PostFragment.OnFragmentInteractionListener, FavBandFragment.OnFragmentInteractionListener,
+        BandListFragment.OnFragmentInteractionListener{
 
     private DrawerLayout drawer;
 
@@ -41,8 +43,8 @@ public class MainMenuActivity extends AppCompatActivity implements NavigationVie
 
         if(savedInstanceState == null){
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                    new PostFragment()).commit();
-            navigationView.setCheckedItem(R.id.nav_posts_client);
+                    new BandListFragment()).commit();
+            navigationView.setCheckedItem(R.id.nav_bandlist);
         }
 
 
@@ -77,6 +79,13 @@ public class MainMenuActivity extends AppCompatActivity implements NavigationVie
                         UserLoginActivity.class);
                 startActivityForResult(intent,0);
         }
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
     }
 }

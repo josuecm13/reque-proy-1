@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:padding="7dp">
 
-    <android.support.v4.widget.CircleImageView
+    <ImageView
         android:id="@+id/post_newsitem_thumbnail"
         android:layout_width="80dp"
         android:layout_height="80dp"
@@ -19,6 +19,7 @@
         android:layout_toEndOf="@id/post_newsitem_thumbnail"
         android:layout_toRightOf="@id/post_newsitem_thumbnail"
         android:text="Titulo"
+        android:textColor="@color/colorPrimaryDark"
         android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
     <ImageView
@@ -48,6 +49,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="80dp"
         android:layout_marginStart="20dp"
+        android:textColor="@color/colorPrimaryDark"
         android:layout_toEndOf="@id/post_newsitem_thumbnail"
         android:layout_toRightOf="@id/post_newsitem_thumbnail"
         android:text="lkdsljfglfdjglfjglfjglkdfjglfjgljflgjlfkgjlfkjglfkjglkfjgjfkgkjfm..."
