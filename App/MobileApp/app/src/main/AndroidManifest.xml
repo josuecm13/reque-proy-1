@@ -34,8 +34,9 @@
         <activity android:name=".UserRegister" />
         <activity android:name=".ui.posts.MainMenuAdmin" />
         <activity android:name=".ui.posts.fragments.BandListAdminFragment" />
-        <activity android:name=".ui.bands.InsertBand"></activity>
-        <activity android:name=".ui.posts.NewsAdd"/>
+        <activity android:name=".ui.bands.InsertBand" />
+        <activity android:name=".ui.posts.NewsAdd" />
+        <activity android:name=".ui.bands.BandProfile" />
     </application>
 
 </manifest>

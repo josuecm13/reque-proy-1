@@ -1,0 +1,41 @@
+package com.example.admin.musicbeansapp.adapters;
+
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
+
+import com.example.admin.musicbeansapp.ui.bands.fragments.DescriptionProfile;
+import com.example.admin.musicbeansapp.ui.bands.fragments.EventProfile;
+import com.example.admin.musicbeansapp.ui.bands.fragments.ProductProfile;
+
+public class TabAdapter extends FragmentStatePagerAdapter {
+
+    int tabNumber;
+    public TabAdapter(FragmentManager fm,int tabNumber)
+    {
+        super(fm);
+        this.tabNumber=tabNumber;
+    }
+    @Override
+    public Fragment getItem(int position) {
+       switch (position)
+       {
+           case 0:
+               EventProfile tab1 = new EventProfile();
+               return tab1;
+           case 1:
+               ProductProfile tab2 = new ProductProfile();
+               return  tab2;
+           case 2:
+               DescriptionProfile tab3 = new DescriptionProfile();
+               return  tab3;
+           default:
+               return null;
+       }
+    }
+
+    @Override
+    public int getCount() {
+        return tabNumber;
+    }
+}

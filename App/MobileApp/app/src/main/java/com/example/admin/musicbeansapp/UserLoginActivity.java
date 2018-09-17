@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.admin.musicbeansapp.ui.bands.BandProfile;
 import com.example.admin.musicbeansapp.ui.posts.MainMenuActivity;
 import com.example.admin.musicbeansapp.ui.posts.MainMenuAdmin;
 
@@ -99,6 +100,10 @@ public class UserLoginActivity extends AppCompatActivity {
             if(status== musicbeans.dataaccess.Status.BAND)
             {
                 Sesion.createInstance(user).setAccounType(status);
+                Sesion.createInstance(user).setAccounType(status);
+                Intent intent = new Intent(getApplicationContext(),
+                        BandProfile.class);
+                startActivityForResult(intent,0);
                 Toast.makeText(getApplicationContext(),"Band", Toast.LENGTH_SHORT).show();
             }
         }
