@@ -17,7 +17,7 @@ public class Client {
         if (connection != null) {
             try {
                 pst = connection.createStatement();
-                rs = pst.executeQuery("Select * from Band order by username");
+                rs = pst.executeQuery("Select * from Client order by username");
                 while (rs.next()) {
                     result.add(new musicbeans.entities.Client(rs.getString("username"),"",
                             null,rs.getString("name")));
@@ -45,7 +45,7 @@ public class Client {
         {
             try
             {
-                pst = connection.prepareStatement("{call deleteBand @band=?}");
+                pst = connection.prepareStatement("{call deleteClient @client=?}");
                 pst.setString(1,client.getUsername());
                 rs = pst.executeQuery();
                 boolean exits = rs.next();

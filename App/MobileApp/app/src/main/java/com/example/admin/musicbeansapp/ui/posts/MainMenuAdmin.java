@@ -23,7 +23,7 @@ import com.example.admin.musicbeansapp.ui.posts.fragments.PostFragment;
 
 public class MainMenuAdmin extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
         PostFragment.OnFragmentInteractionListener, FavBandFragment.OnFragmentInteractionListener,
-        BandListAdminFragment.OnFragmentInteractionListener{
+        BandListAdminFragment.OnFragmentInteractionListener,ClientListAdminFragment.OnFragmentInteractionListener{
 
     private DrawerLayout drawer;
 
