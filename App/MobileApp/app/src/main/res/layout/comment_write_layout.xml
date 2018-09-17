@@ -22,6 +22,7 @@
         android:textColor="@color/black" />
 
     <Button
+        android:id="@+id/comment_submit"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:layout_alignEnd="@id/text_section"

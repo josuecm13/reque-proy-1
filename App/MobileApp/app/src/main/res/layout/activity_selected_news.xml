@@ -77,7 +77,7 @@ hola hola hola hola hola hola hola hola hola"/>
 
 
            <include layout="@layout/comment_write_layout"
-               android:id="@+id/comment_field"/>
+               android:id="@+id/selected_news_comment_writer"/>
 
         </LinearLayout>
 
@@ -88,7 +88,8 @@ hola hola hola hola hola hola hola hola hola"/>
 
             <android.support.v7.widget.RecyclerView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:id="@+id/comment_section">
 
             </android.support.v7.widget.RecyclerView>
 
