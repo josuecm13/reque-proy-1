@@ -8,11 +8,38 @@
     android:orientation="vertical">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        android:orientation="horizontal">
         <ImageView
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:src="@drawable/logo"/>
+            android:src="@drawable/ic_music_note_black_24dp"
+            android:background="@color/colorPrimaryDark"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/bandName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#fdfdfe"
+                android:textSize="25sp"
+                android:gravity="left|center_vertical"
+                android:text="Banda1"
+                android:layout_margin="2dp"/>
+            <TextView
+                android:id="@+id/rating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#fdfdfe"
+                android:textSize="25sp"
+                android:gravity="left"
+                android:drawableRight="@drawable/ic_star_black_24dp"
+                android:text="5"
+                android:layout_margin="2dp"/>
+        </LinearLayout>
     </LinearLayout>
     <android.support.design.widget.TabLayout
         android:layout_width="match_parent"

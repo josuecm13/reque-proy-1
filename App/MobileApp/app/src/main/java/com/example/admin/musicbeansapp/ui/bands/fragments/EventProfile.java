@@ -4,11 +4,21 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.admin.musicbeansapp.R;
+import com.example.admin.musicbeansapp.adapters.EventProfileAdapter;
+
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+
+import musicbeans.entities.Event;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -65,7 +75,22 @@ public class EventProfile extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_event_profile, container, false);
+        View view = inflater.inflate(R.layout.fragment_event_profile, container, false);
+
+        List<Event> list = new ArrayList<>();
+
+        java.sql.Date d= new Date(Calendar.getInstance().getTimeInMillis());
+        list.add(new Event(d,"Parque 1","Title1","Descp","band1"));
+        list.add(new Event(d,"Parque 1","Title1","Descp","band1"));
+        list.add(new Event(d,"Parque 1","Title1","Descp","band1"));
+        list.add(new Event(d,"Parque 1","Title1","Descp","band1"));
+
+        RecyclerView myvr = (RecyclerView)view.findViewById(R.id.event_profile_recycler);
+        EventProfileAdapter adapter = new EventProfileAdapter(getActivity(),list);
+        myvr.setLayoutManager(new GridLayoutManager(getActivity(),3));
+        myvr.setAdapter(adapter);
+
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

@@ -4,11 +4,23 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.admin.musicbeansapp.R;
+import com.example.admin.musicbeansapp.adapters.EventProfileAdapter;
+import com.example.admin.musicbeansapp.adapters.ProductProfileAdapter;
+
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+
+import musicbeans.entities.Event;
+import musicbeans.entities.Product;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -65,7 +77,22 @@ public class ProductProfile extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_product_profile, container, false);
+        View view = inflater.inflate(R.layout.fragment_product_profile, container, false);
+
+        List<Product> list = new ArrayList<>();
+
+        list.add(new Product(1,"A",12));
+        list.add(new Product(1,"B",11));
+        list.add(new Product(1,"C",2));
+        list.add(new Product(1,"D",34));
+        list.add(new Product(1,"E",90));
+
+        RecyclerView myvr = (RecyclerView)view.findViewById(R.id.product_profile_recycler);
+        ProductProfileAdapter adapter = new ProductProfileAdapter(getActivity(),list);
+        myvr.setLayoutManager(new GridLayoutManager(getContext(),3));
+        myvr.setAdapter(adapter);
+
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
