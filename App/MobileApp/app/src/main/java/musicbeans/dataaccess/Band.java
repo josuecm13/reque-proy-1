@@ -120,6 +120,40 @@ public class Band {
         return Status.OK;
     }
 
+    public static Status deleteBand(musicbeans.entities.Band band)
+    {
+        Connection connection = Connector.getConnection2();
+        PreparedStatement pst=null;
+        ResultSet rs=null;
+        if(connection!=null)
+        {
+            try
+            {
+                pst = connection.prepareStatement("{call deleteBand @band=?}");
+                pst.setString(1,band.getUsername());
+                rs = pst.executeQuery();
+                boolean exits = rs.next();
+                if(exits)
+                {
+                    int msg = rs.getInt("msg");
+                    if(msg==0)return  Status.OK;
+                    else return  Status.FAILED;
+                }
+                else return Status.NETWORK_ERROR;
+            }
+            catch (Exception e)
+            {
+
+            }
+            finally
+            {
+                if (pst != null) try { pst.close(); } catch(Exception ignored) {}
+                if (rs != null) try { rs.close(); } catch(Exception ignored) {}
+                if (connection != null) try { connection.close(); } catch(Exception ignored) {}
+            }
+        }
+        return Status.NETWORK_ERROR;
+    }
 
 
 }
