@@ -6,6 +6,7 @@ public class Product {
     private String name;
     private String type;
     private double price;
+    private  int stock;
     private byte[] content;
 
     public Product(int ID, String name, double price) {
@@ -17,6 +18,14 @@ public class Product {
     public Product(String name, double price) {
         this.name = name;
         this.price = price;
+    }
+
+    public Product(String name, String type, double price, int stock, byte[] content) {
+        this.name = name;
+        this.type = type;
+        this.price = price;
+        this.stock = stock;
+        this.content = content;
     }
 
     public Product(int ID, String band, String name, String type, double price, byte[] content) {
@@ -74,5 +83,13 @@ public class Product {
 
     public void setContent(byte[] content) {
         this.content = content;
+    }
+
+    public int getStock() {
+        return stock;
+    }
+
+    public void setStock(int stock) {
+        this.stock = stock;
     }
 }

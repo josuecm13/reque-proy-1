@@ -10,6 +10,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+import musicbeans.entities.Band;
 import musicbeans.entities.Event;
 import musicbeans.entities.NewsItem;
 import musicbeans.entities.Sesion;
@@ -135,6 +136,47 @@ public class Posts {
             }
         }
         return Status.NETWORK_ERROR;
+    }
+
+    public static Status addEvent (Event event)
+    {
+        Connection connection =  Connector.getConnection2();
+        PreparedStatement pst=null;
+        ResultSet rs = null;
+        if(connection != null)
+        {
+            try
+            {
+                pst= connection.prepareStatement("select * from Event where date = ? and band=?");
+                pst.setDate(1,event.getDateSQL());
+                pst.setString(2,Sesion.getInstance().getUsername());
+                rs = pst.executeQuery();
+                boolean exits = rs.next();
+
+                if(exits) return Status.REPEATED_USER;
+
+                pst = connection.prepareStatement("insert into Event (date,band,location,description,Title)values(?,?,?,?,?)");
+                pst.setDate(1,event.getDateSQL());
+                pst.setString(2,Sesion.getInstance().getUsername());
+                pst.setString(3,event.getLocation());
+                pst.setString(4,event.getDescription());
+                pst.setString(5,event.getTitle());
+                pst.executeUpdate();
+
+                return Status.REGISTERED;
+            } catch (Exception e)
+            {
+                System.err.println(e.toString());
+            }
+            finally
+            {
+                if (rs != null) try { rs.close(); } catch(Exception e) {}
+                if (pst != null) try { pst.close(); } catch(Exception e) {}
+                if (connection != null) try { connection.close(); } catch(Exception e) {}
+            }
+        }
+        return Status.NETWORK_ERROR;
+
     }
 
 }

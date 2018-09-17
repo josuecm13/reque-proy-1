@@ -1,6 +1,6 @@
 package musicbeans.entities;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class Event extends Posts {
 
@@ -55,4 +55,6 @@ public class Event extends Posts {
     public void setBanda(String banda) {
         this.banda = banda;
     }
+
+    public java.sql.Date getDateSQL(){return new java.sql.Date(date.getTime());}
 }

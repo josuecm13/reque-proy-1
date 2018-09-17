@@ -1,8 +1,10 @@
 package com.example.admin.musicbeansapp.ui.bands.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,6 +15,7 @@ import android.view.ViewGroup;
 import com.example.admin.musicbeansapp.R;
 import com.example.admin.musicbeansapp.adapters.EventProfileAdapter;
 import com.example.admin.musicbeansapp.adapters.ProductProfileAdapter;
+import com.example.admin.musicbeansapp.ui.bands.AddProduct;
 
 import java.sql.Date;
 import java.util.ArrayList;
@@ -92,7 +95,22 @@ public class ProductProfile extends Fragment {
         myvr.setLayoutManager(new GridLayoutManager(getContext(),3));
         myvr.setAdapter(adapter);
 
+        FloatingActionButton btn = (FloatingActionButton)view.findViewById(R.id.newProduct);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                newProduct(view);
+            }
+        });
+
         return view;
+    }
+    public void newProduct(View v)
+    {
+
+        Intent intent = new Intent(getActivity(),
+                AddProduct.class);
+        startActivity(intent);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
