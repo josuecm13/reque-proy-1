@@ -53,7 +53,7 @@ public class ClientListAdapter extends RecyclerView.Adapter<ClientListAdapter.Ba
 
     private void changeState(BandHolder holder, int position) {
 
-        Status status = musicbeans.dataaccess.Band.deleteBand(clientList.get(position));
+        Status status = musicbeans.dataaccess.Client.deleteClient(clientList.get(position));
         if (holder.itemView != null) {
             if (status == Status.NETWORK_ERROR)
                 Toast.makeText(holder.itemView.getContext(), "Error de conexión", Toast.LENGTH_SHORT).show();

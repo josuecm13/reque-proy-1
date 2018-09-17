@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 
 import com.example.admin.musicbeansapp.R;
 import com.example.admin.musicbeansapp.adapters.BandListAdapter;
+import com.example.admin.musicbeansapp.adapters.ClientListAdapter;
 import com.example.admin.musicbeansapp.ui.bands.InsertBand;
 
 import java.util.ArrayList;
@@ -87,16 +88,9 @@ public class ClientListAdminFragment extends Fragment {
 
         //filllist();
 
-        BandListAdapter adapter = new BandListAdapter(musicbeans.dataaccess.Band.getBands(),true);
+        ClientListAdapter adapter = new ClientListAdapter(musicbeans.dataaccess.Client.getClients());
 
         recyclerView.setAdapter(adapter);
-        FloatingActionButton btn = (FloatingActionButton)view.findViewById(R.id.newBand);
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                newBand(view);
-            }
-        });
         return view;
     }
 
@@ -107,13 +101,6 @@ public class ClientListAdminFragment extends Fragment {
         bandList.add(new Band("a","",null,"","letter a",(byte) 5,new byte[45],"sadha"));
         bandList.add(new Band("a","",null,"","letter a",(byte) 5,new byte[45],"sadha"));
         bandList.add(new Band("a","",null,"","letter a",(byte) 5,new byte[45],"sadha"));
-    }
-    public void newBand(View v)
-    {
-
-        Intent intent = new Intent(getActivity(),
-                InsertBand.class);
-        startActivity(intent);
     }
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {

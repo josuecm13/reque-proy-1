@@ -143,7 +143,7 @@ public class Band {
             }
             catch (Exception e)
             {
-
+                System.err.println(e.toString());
             }
             finally
             {

@@ -16,6 +16,7 @@ import com.example.admin.musicbeansapp.UserLoginActivity;
 import com.example.admin.musicbeansapp.R;
 import com.example.admin.musicbeansapp.ui.posts.fragments.BandListAdminFragment;
 import com.example.admin.musicbeansapp.ui.posts.fragments.BandListFragment;
+import com.example.admin.musicbeansapp.ui.posts.fragments.ClientListAdminFragment;
 import com.example.admin.musicbeansapp.ui.posts.fragments.FavBandFragment;
 import com.example.admin.musicbeansapp.ui.posts.fragments.PostFragment;
 
@@ -67,14 +68,14 @@ public class MainMenuAdmin extends AppCompatActivity implements NavigationView.O
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new PostFragment()).commit();
                 break;*/
-            case R.id.nav_favband_client:
+            case R.id.nav_bandlist:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new BandListAdminFragment()).commit();
                 break;
-           /* case R.id.nav_bandlist:
+            case R.id.nav_favband_client:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new BandListFragment()).commit();
-                break;*/
+                        new ClientListAdminFragment()).commit();
+                break;
             case R.id.nav_logout:
                 Intent intent = new Intent(getApplicationContext(),
                         UserLoginActivity.class);
