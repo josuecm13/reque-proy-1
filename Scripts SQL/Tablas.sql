@@ -43,8 +43,9 @@ create table Comment
 	news_date datetime,
 	comment varchar(1000) constraint comment_comment_nn not null,
 	date datetime,
+	client varchar(30) constraint comment_client_fk references client (username),
 	constraint comment_fk foreign key (author,news_date) references News(author,date),
-	constraint comment_pk primary key (author,news_date, date)
+	constraint comment_pk primary key (author,news_date, date,username)
 )
 
 create table FavoriteBand

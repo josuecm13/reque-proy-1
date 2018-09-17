@@ -83,6 +83,7 @@ public class BandListAdapter extends RecyclerView.Adapter<BandListAdapter.BandHo
                 if (status == Status.OK) {
                     Toast.makeText(v.getContext(), "Se eliminó correctamente", Toast.LENGTH_SHORT).show();
                     bandList.remove(position);
+                    notifyItemRemoved(position);
                 }
                 if(status==Status.FAILED){
                     Toast.makeText(v.getContext(), "No se puedo eliminar", Toast.LENGTH_SHORT).show();
