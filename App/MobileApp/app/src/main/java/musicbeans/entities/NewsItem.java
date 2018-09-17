@@ -16,7 +16,12 @@ public class NewsItem extends Posts {
         this.author = author;
         this.date = date;
     }
-
+    public NewsItem(String title,String body,byte[] img)
+    {
+        this.title=title;
+        this.body=body;
+        this.img=img;
+    }
     public String getTitle() {
         return title;
     }

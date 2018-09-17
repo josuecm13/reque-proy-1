@@ -1,9 +1,11 @@
 package com.example.admin.musicbeansapp.ui.posts.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,6 +16,8 @@ import android.view.ViewGroup;
 import com.example.admin.musicbeansapp.R;
 import com.example.admin.musicbeansapp.adapters.PostAdapter;
 import com.example.admin.musicbeansapp.adapters.PostAdminAdapter;
+import com.example.admin.musicbeansapp.ui.bands.InsertBand;
+import com.example.admin.musicbeansapp.ui.posts.NewsAdd;
 
 import java.util.List;
 
@@ -85,9 +89,24 @@ public class PostAdminFragment extends Fragment {
         List<Posts> lista = musicbeans.dataaccess.Posts.getPostsAdmin();
         adapter = new PostAdminAdapter(lista);
         recyclerView.setAdapter(adapter);
+
+        FloatingActionButton btn = (FloatingActionButton)view.findViewById(R.id.addNews);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                newNews(view);
+            }
+        });
+
         return view;
     }
+    public void newNews(View v)
+    {
 
+        Intent intent = new Intent(getActivity(),
+                NewsAdd.class);
+        startActivity(intent);
+    }
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {

@@ -88,7 +88,7 @@ public class Posts {
         List<musicbeans.entities.Posts> result = new ArrayList<>();
         if (connection != null) {
             try {
-                pst = connection.prepareStatement("select * from News order by date desc where author=?");
+                pst = connection.prepareStatement("select * from News where author=? order by date desc ");
                 pst.setString(1, Sesion.getInstance().getUsername());
                 rs = pst.executeQuery();
                 while (rs.next()) {
@@ -107,6 +107,34 @@ public class Posts {
             }
         }
         return result;
+    }
+    public static Status publishNews(NewsItem news)
+    {
+        Connection connection =  Connector.getConnection2();
+        PreparedStatement pst=null;
+        ResultSet rs = null;
+        if(connection != null)
+        {
+            try
+            {
+                pst = connection.prepareStatement("insert into News (author,date,title,body) values (?,getdate(),?,?)");
+                pst.setString(1,Sesion.getInstance().getUsername());
+                pst.setString(2,news.getTitle());
+                pst.setString(3,news.getBody());
+                pst.executeUpdate();
+                return Status.REGISTERED;
+            } catch (Exception e)
+            {
+                System.err.println(e.toString());
+            }
+            finally
+            {
+                if (rs != null) try { rs.close(); } catch(Exception e) {}
+                if (pst != null) try { pst.close(); } catch(Exception e) {}
+                if (connection != null) try { connection.close(); } catch(Exception e) {}
+            }
+        }
+        return Status.NETWORK_ERROR;
     }
 
 }
