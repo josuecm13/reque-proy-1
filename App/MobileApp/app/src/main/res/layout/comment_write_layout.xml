@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="25dp"
+    android:id="@+id/comment_write_layout"
+    >
+
+    <ImageView
+        android:id="@+id/user_photo"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@mipmap/ic_launcher" />
+
+    <EditText
+        android:id="@+id/text_section"
+        android:layout_width="500dp"
+        android:layout_height="100dp"
+        android:layout_marginLeft="20dp"
+        android:layout_toRightOf="@id/user_photo"
+        android:background="@color/verylightgray"
+        android:textColor="@color/black" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_alignEnd="@id/text_section"
+        android:layout_alignRight="@id/text_section"
+        android:layout_below="@id/text_section"
+        android:layout_marginTop="10dp"
+        android:background="@color/colorAccent"
+        android:text="Comentar" />
+
+</RelativeLayout>
