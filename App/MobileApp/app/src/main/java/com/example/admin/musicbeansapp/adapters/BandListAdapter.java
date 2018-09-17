@@ -53,6 +53,7 @@ public class BandListAdapter extends RecyclerView.Adapter<BandListAdapter.BandHo
                 }
             });
         }else {
+            holder.fav.setImageResource(R.drawable.ic_delete_black_24dp);
             holder.fav.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {
@@ -60,7 +61,7 @@ public class BandListAdapter extends RecyclerView.Adapter<BandListAdapter.BandHo
                     return true;
                 }
             });
-            holder.fav.setImageResource(R.drawable.ic_delete_black_24dp);
+
         }
     }
 

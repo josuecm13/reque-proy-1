@@ -87,9 +87,9 @@ public class BandListAdminFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        filllist();
+        //filllist();
 
-        BandListAdapter adapter = new BandListAdapter(bandList,true);
+        BandListAdapter adapter = new BandListAdapter(musicbeans.dataaccess.Band.getBands(),true);
 
         recyclerView.setAdapter(adapter);
         FloatingActionButton btn = (FloatingActionButton)view.findViewById(R.id.newBand);
