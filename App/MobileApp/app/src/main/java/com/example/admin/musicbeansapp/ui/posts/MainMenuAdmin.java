@@ -14,15 +14,17 @@ import android.view.MenuItem;
 
 import com.example.admin.musicbeansapp.UserLoginActivity;
 import com.example.admin.musicbeansapp.R;
+import com.example.admin.musicbeansapp.adapters.PostAdminAdapter;
 import com.example.admin.musicbeansapp.ui.posts.fragments.BandListAdminFragment;
 import com.example.admin.musicbeansapp.ui.posts.fragments.BandListFragment;
 import com.example.admin.musicbeansapp.ui.posts.fragments.ClientListAdminFragment;
 import com.example.admin.musicbeansapp.ui.posts.fragments.FavBandFragment;
+import com.example.admin.musicbeansapp.ui.posts.fragments.PostAdminFragment;
 import com.example.admin.musicbeansapp.ui.posts.fragments.PostFragment;
 
 
 public class MainMenuAdmin extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
-        PostFragment.OnFragmentInteractionListener, FavBandFragment.OnFragmentInteractionListener,
+        PostAdminFragment.OnFragmentInteractionListener, FavBandFragment.OnFragmentInteractionListener,
         BandListAdminFragment.OnFragmentInteractionListener,ClientListAdminFragment.OnFragmentInteractionListener{
 
     private DrawerLayout drawer;
@@ -64,10 +66,10 @@ public class MainMenuAdmin extends AppCompatActivity implements NavigationView.O
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
-            /*case R.id.nav_posts_client:
+            case R.id.nav_posts_client:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new PostFragment()).commit();
-                break;*/
+                        new PostAdminFragment()).commit();
+                break;
             case R.id.nav_bandlist:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new BandListAdminFragment()).commit();

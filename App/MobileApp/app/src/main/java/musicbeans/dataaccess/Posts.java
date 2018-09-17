@@ -12,6 +12,7 @@ import java.util.List;
 
 import musicbeans.entities.Event;
 import musicbeans.entities.NewsItem;
+import musicbeans.entities.Sesion;
 
 public class Posts {
 
@@ -65,6 +66,33 @@ public class Posts {
                 rs = pst.executeQuery("select * from Event order by date desc");
                 while (rs.next()){
                     result.add(new Event(rs.getDate("date"),rs.getString("location"),rs.getString("Title"),rs.getString("description"),rs.getString("band")));
+                }
+                Collections.sort(result);
+            }  catch (Exception e)
+            {
+                System.err.println(e.toString());
+            }
+            finally
+            {
+                if (rs != null) try { rs.close(); } catch(Exception e) {}
+                if (pst != null) try { pst.close(); } catch(Exception e) {}
+                if (connection != null) try { connection.close(); } catch(Exception e) {}
+            }
+        }
+        return result;
+    }
+    public static List<musicbeans.entities.Posts> getPostsAdmin() {
+        Connection connection = Connector.getConnection2();
+        PreparedStatement pst=null;
+        ResultSet rs=null;
+        List<musicbeans.entities.Posts> result = new ArrayList<>();
+        if (connection != null) {
+            try {
+                pst = connection.prepareStatement("select * from News order by date desc where author=?");
+                pst.setString(1, Sesion.getInstance().getUsername());
+                rs = pst.executeQuery();
+                while (rs.next()) {
+                    result.add(new NewsItem(rs.getString("title"), rs.getString("body"), null, rs.getString("author"), rs.getDate("date")));
                 }
                 Collections.sort(result);
             }  catch (Exception e)
