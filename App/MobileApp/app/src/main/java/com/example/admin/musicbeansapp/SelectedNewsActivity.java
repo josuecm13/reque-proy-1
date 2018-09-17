@@ -15,8 +15,10 @@ import com.example.admin.musicbeansapp.adapters.CommentAdapter;
 import java.sql.Date;
 import java.util.List;
 
+import musicbeans.dataaccess.Status;
 import musicbeans.entities.Comment;
 import musicbeans.entities.NewsItem;
+import musicbeans.entities.Sesion;
 
 public class SelectedNewsActivity extends AppCompatActivity {
 
@@ -29,13 +31,23 @@ public class SelectedNewsActivity extends AppCompatActivity {
     TextView tvTitle;
     TextView tvbody;
     ImageView imageView;
-    EditText commentbutton;
+    EditText commentArea;
     Button submitButton;
+    NewsItem newsItem;
 
     List<Comment> commentList;
     RecyclerView recyclerView;
 
     CommentAdapter adapter;
+
+    private boolean commentempty(String string){
+        for (int i = 0; i < string.length() ; i++) {
+            if (string.charAt(i) != ' '){
+                return false;
+            }
+        }
+        return true;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,19 +57,24 @@ public class SelectedNewsActivity extends AppCompatActivity {
         tvTitle = findViewById(R.id.selected_news_title);
         tvbody = findViewById(R.id.selected_news_body);
         imageView = findViewById(R.id.selected_news_image);
-        commentbutton = findViewById(R.id.text_section);
+        commentArea = findViewById(R.id.text_section);
         submitButton = findViewById(R.id.comment_submit);
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO: Submit a comment
+                String text = commentArea.getText().toString();
+                if (!commentempty(text))
+                    musicbeans.dataaccess.Comment.insertComment(text, Sesion.getInstance().getUsername(),newsItem);
             }
         });
+
 
         title = getIntent().getExtras().getString("Title");
         body =  getIntent().getExtras().getString("Body");
         date = new Date(getIntent().getExtras().getLong("Date"));
         author = getIntent().getExtras().getString("Author");
+
+        newsItem = new NewsItem(title,body,null,author,date);
 
 
         tvTitle.setText(title);
@@ -66,7 +83,7 @@ public class SelectedNewsActivity extends AppCompatActivity {
         recyclerView =  findViewById(R.id.comment_section);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
-        commentList = musicbeans.dataaccess.Comment.getComments(new NewsItem(title,body,null,author,date));
+        commentList = musicbeans.dataaccess.Comment.getComments(newsItem);
 
         adapter = new CommentAdapter(commentList);
         recyclerView.setAdapter(adapter);
