@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.example.admin.musicbeansapp.R;
 import com.example.admin.musicbeansapp.adapters.EventProfileAdapter;
@@ -22,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import musicbeans.dataaccess.ImageManager;
 import musicbeans.entities.Event;
 import musicbeans.entities.Product;
 
@@ -83,15 +85,22 @@ public class ProductProfile extends Fragment {
         View view = inflater.inflate(R.layout.fragment_product_profile, container, false);
 
         List<Product> list = musicbeans.dataaccess.Product.getProducts();//new ArrayList<>();
-
+        String[] uri = new String[list.size()];
+        ImageView[] img = new ImageView[list.size()];
+        for(int i=0;i<list.size();i++)
+        {
+            uri[i]="img/"+ list.get(i).getID();
+        }
        /* list.add(new Product(1,"A",12));
         list.add(new Product(1,"B",11));
         list.add(new Product(1,"C",2));
         list.add(new Product(1,"D",34));
         list.add(new Product(1,"E",90));I*/
-
+        //ImageManager manager = new ImageManager(uri,img);
         RecyclerView myvr = (RecyclerView)view.findViewById(R.id.product_profile_recycler);
         ProductProfileAdapter adapter = new ProductProfileAdapter(getActivity(),list);
+
+
         myvr.setLayoutManager(new GridLayoutManager(getContext(),3));
         myvr.setAdapter(adapter);
 
@@ -102,7 +111,7 @@ public class ProductProfile extends Fragment {
                 newProduct(view);
             }
         });
-
+        //manager.execute();
         return view;
     }
     public void newProduct(View v)

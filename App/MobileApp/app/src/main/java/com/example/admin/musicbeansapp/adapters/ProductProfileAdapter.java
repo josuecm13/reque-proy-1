@@ -14,6 +14,7 @@ import com.example.admin.musicbeansapp.R;
 
 import java.util.List;
 
+import musicbeans.dataaccess.ImageManager;
 import musicbeans.dataaccess.Status;
 import musicbeans.entities.Event;
 import musicbeans.entities.Product;
@@ -42,6 +43,8 @@ public class ProductProfileAdapter extends RecyclerView.Adapter<ProductProfileAd
     {
         holder.name.setText(mData.get(postition).getName());
         holder.price.setText("$"+mData.get(postition).getPrice());
+        ImageManager manager = new ImageManager("img/"+mData.get(postition).getID(),holder.photo);
+        manager.execute();
         holder.delete.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
@@ -49,6 +52,7 @@ public class ProductProfileAdapter extends RecyclerView.Adapter<ProductProfileAd
                 return true;
             }
         });
+
     }
     public void delete(MyViewHolder holder,int position)
     {

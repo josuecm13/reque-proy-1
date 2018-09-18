@@ -21,10 +21,10 @@ import com.google.firebase.storage.UploadTask;
 
 public class ImageManager extends AsyncTask<Void,Void,Void>
 {
-    private String url[];
-    private ImageView[] view;
+    public String url;
+    public ImageView view;
 
-    public ImageManager(String[] url, ImageView[] view) {
+    public ImageManager(String url, ImageView view) {
         this.url = url;
         this.view = view;
     }
@@ -34,22 +34,23 @@ public class ImageManager extends AsyncTask<Void,Void,Void>
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageRef = storage.getReference();
 
-        for(int i=0;i<url.length;i++)
-        {
-            String _url =url[i];
-            ImageView img = view[i];
-            final ImageView _img = img;
-            StorageReference _ref = storageRef.child(_url);
-            final  long ONE_MEGABYTE= 1024*1024;
-            _ref.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
-                @Override
-                public void onSuccess(byte[] bytes) {
-                    Bitmap bmp = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
-                    _img.setImageBitmap(Bitmap.createScaledBitmap(bmp,_img.getWidth(),_img.getHeight(),false));
+            String _url =url;
+            ImageView img = view;
+            try {
+                final ImageView _img = img;
+                StorageReference _ref = storageRef.child(_url);
+                final long ONE_MEGABYTE = 1024 * 1024*10;
+                _ref.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                    @Override
+                    public void onSuccess(byte[] bytes) {
+                        Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                        _img.setImageBitmap(Bitmap.createBitmap(bmp));
 
-                }
-            });
-        }
+                    }
+                });
+            }catch (Exception e) {
+                System.err.println(e.toString());
+            }
     }
 
     @Override

@@ -27,8 +27,8 @@ public class BandProfile extends AppCompatActivity implements EventProfile.OnFra
         tabLayout.addTab(tabLayout.newTab().setText("Tienda"));
         tabLayout.addTab(tabLayout.newTab().setText("Descripción"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-        String[] url = new String[]{"img/banda1.PNG"};
-        ImageView[] view = new ImageView[]{(ImageView)findViewById(R.id.profile)};
+        String url = "img/banda1.PNG";
+        ImageView view = (ImageView)findViewById(R.id.profile);
         ImageManager img = new ImageManager(url,view);
         img.execute();
         final ViewPager viewPager = (ViewPager)findViewById(R.id.pager);
