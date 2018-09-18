@@ -30,7 +30,7 @@ public class Comment {
                 pst.setString(3,item.getBody());
                 rs = pst.executeQuery();
                 while (rs.next()){
-                    result.add(new musicbeans.entities.Comment(rs.getString("author"),rs.getString("comment"),rs.getDate("date")));
+                    result.add(new musicbeans.entities.Comment(rs.getString("client"),rs.getString("comment"),rs.getDate("date")));
                 }
             }catch (SQLException ex){
 
@@ -47,18 +47,20 @@ public class Comment {
     public static Status insertComment(String comment, String username, NewsItem newsItem){
         Connection connection = Connector.getConnection2();
         PreparedStatement pst =null;
-        boolean rs;
+        ResultSet rs;
         if (connection != null){
             try{
-                pst = connection.prepareStatement("{call insert_comment @author = ?, @client = ?, @comment = ?, @title = ?, body = ?}");
+                pst = connection.prepareStatement("{call insert_comment @author = ?, @client = ?, @comment = ?, @title = ?, @body = ?}");
                 pst.setString(1,newsItem.getAuthor());
                 pst.setString(2,username);
                 pst.setString(3,comment);
                 pst.setString(4,newsItem.getTitle());
                 pst.setString(5,newsItem.getBody());
-                rs = pst.execute();
-                if(rs) return Status.OK;
-                else return Status.WRONG_CREDENTIALS;
+                rs = pst.executeQuery();
+                if(rs.next())
+                    return Status.OK;
+                else
+                    return Status.WRONG_CREDENTIALS;
             }catch (SQLException e){
 
             }finally{

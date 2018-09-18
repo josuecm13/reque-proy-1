@@ -64,7 +64,10 @@ public class SelectedNewsActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String text = commentArea.getText().toString();
                 if (!commentempty(text))
-                    musicbeans.dataaccess.Comment.insertComment(text, Sesion.getInstance().getUsername(),newsItem);
+                    if (musicbeans.dataaccess.Comment.insertComment(text, Sesion.getInstance().getUsername(),newsItem) == Status.OK){
+                        commentArea.setText("");
+                        adapter.notifyDataSetChanged();
+                    }
             }
         });
 

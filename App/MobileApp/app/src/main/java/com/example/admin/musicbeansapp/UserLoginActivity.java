@@ -81,7 +81,7 @@ public class UserLoginActivity extends AppCompatActivity {
             }
             if(status== musicbeans.dataaccess.Status.CLIENT)
             {
-                Sesion.createInstance(user).setAccounType(status);
+                Sesion.createInstance(username.getText().toString()).setAccounType(status);
                 Intent intent = new Intent(getApplicationContext(),
                         MainMenuActivity.class);
                 startActivityForResult(intent,0);
