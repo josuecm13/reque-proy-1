@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "199274916999",
+    "firebase_url": "https://musicbeans-app.firebaseio.com",
+    "project_id": "musicbeans-app",
+    "storage_bucket": "musicbeans-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:199274916999:android:238471c8e51fa554",
+        "android_client_info": {
+          "package_name": "com.example.admin.musicbeansapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "199274916999-v2n3hq09f8vgc3df3g84tpd972e5vs0e.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.admin.musicbeansapp",
+            "certificate_hash": "c827073bb75ec09bebc3b165bcee179f44ac9933"
+          }
+        },
+        {
+          "client_id": "199274916999-3ievaa4rnl5g05rfdpuh5budk3ee3t3d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBU7xIbsZREnU04PlwVFnIqrPlijYL-wXE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "199274916999-3ievaa4rnl5g05rfdpuh5budk3ee3t3d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
