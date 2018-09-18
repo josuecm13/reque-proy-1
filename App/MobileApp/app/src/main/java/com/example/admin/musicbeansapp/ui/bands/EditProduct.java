@@ -142,7 +142,7 @@ public class EditProduct extends AppCompatActivity {
             int stock = (Integer) fields[3];
             byte[] photo = getBytes();
 
-            status = Product.addProduct(new musicbeans.entities.Product(name,type,price,stock,photo));
+            status = Product.addProduct(path,new musicbeans.entities.Product(name,type,price,stock,photo));
             return status;
         }
         protected void onPostExecute(musicbeans.dataaccess.Status status)

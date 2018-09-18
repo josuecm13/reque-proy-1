@@ -1,5 +1,7 @@
 package musicbeans.dataaccess;
 
+import android.net.Uri;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,8 +13,10 @@ import musicbeans.entities.Sesion;
 
 public class Product
 {
-    public static Status addProduct (musicbeans.entities.Product product)
+
+    public static Status addProduct(Uri uri, musicbeans.entities.Product product)
     {
+        boolean insert=false;
         Connection connection =  Connector.getConnection2();
         PreparedStatement pst=null;
         ResultSet rs = null;
@@ -28,9 +32,20 @@ public class Product
                 pst.setDouble(5,product.getPrice());
                 pst.executeUpdate();
 
+                pst = connection.prepareStatement("select max(id) maxi from Product where band=?");
+                pst.setString(1,Sesion.getInstance().getUsername());
+                rs=pst.executeQuery();
+                insert = true;
+                if(rs.next())
+                {
+                    int id = rs.getInt("maxi");
+                    return ImageManager.uploadImage(uri,id+"");
+                }
+
                 return Status.REGISTERED;
             } catch (Exception e)
             {
+                if(insert)return Status.IMG_FAILED;
                 System.err.println(e.toString());
             }
             finally

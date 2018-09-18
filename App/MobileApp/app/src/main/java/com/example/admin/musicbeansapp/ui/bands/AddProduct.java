@@ -1,5 +1,7 @@
 package com.example.admin.musicbeansapp.ui.bands;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -98,7 +100,7 @@ public class AddProduct extends AppCompatActivity {
             int _stock = Integer.parseInt(stock.getText().toString());
             String _name = name.getText().toString();
             String _type = type.getText().toString();
-            RegisterUser registerUser = new RegisterUser();
+            RegisterUser registerUser = new RegisterUser(this);
             registerUser.execute(_name,_type,_price,_stock);
         }
     }
@@ -127,7 +129,12 @@ public class AddProduct extends AppCompatActivity {
     }
     class RegisterUser extends AsyncTask<Object,Void,Status>
     {
+        ProgressDialog progressDialog ;
         public RegisterUser(){}
+        public RegisterUser(Context context)
+        {
+            progressDialog = new ProgressDialog(context);
+        }
         protected musicbeans.dataaccess.Status doInBackground(Object... fields)
         {
             musicbeans.dataaccess.Status status =null;
@@ -135,16 +142,27 @@ public class AddProduct extends AppCompatActivity {
             String type = (String )fields[1];
             double price = (Double) fields[2];
             int stock = (Integer) fields[3];
-            byte[] photo = getBytes();
+            byte[] photo =null;
 
-            status = Product.addProduct(new musicbeans.entities.Product(name,type,price,stock,photo));
+            status = Product.addProduct(path,new musicbeans.entities.Product(name,type,price,stock,photo));
             return status;
         }
+
         protected void onPostExecute(musicbeans.dataaccess.Status status)
         {
+            progressDialog.dismiss();
             if(status== musicbeans.dataaccess.Status.REPEATED_USER)
             {
                 Toast.makeText(getApplicationContext(),"Ese usuario ya existe", Toast.LENGTH_SHORT).show();
+            }
+            if(status== musicbeans.dataaccess.Status.IMG_FAILED)
+            {
+                Toast.makeText(getApplicationContext(),"El producto se insertó pero no se cargó su imagen", Toast.LENGTH_SHORT).show();
+                path=null;
+                name.setText("");
+                type.setText("");
+                price.setText("");
+                stock.setText("");
             }
             if(status== musicbeans.dataaccess.Status.REGISTERED)
             {
@@ -160,6 +178,11 @@ public class AddProduct extends AppCompatActivity {
             {
                 Toast.makeText(getApplicationContext(),"Error de conexión", Toast.LENGTH_SHORT).show();
             }
+        }
+
+        protected void onProgressUpdate(Void... values)
+        {
+            Toast.makeText(getApplicationContext(),"Subiendo...", Toast.LENGTH_SHORT).show();
         }
     }
 }
