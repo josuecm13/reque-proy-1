@@ -31,15 +31,15 @@ public class Product
                 pst.setInt(4,product.getStock());
                 pst.setDouble(5,product.getPrice());
                 pst.executeUpdate();
-
+                insert = true;
                 pst = connection.prepareStatement("select max(id) maxi from Product where band=?");
                 pst.setString(1,Sesion.getInstance().getUsername());
                 rs=pst.executeQuery();
-                insert = true;
+
                 if(rs.next())
                 {
                     int id = rs.getInt("maxi");
-                    return ImageManager.uploadImage(uri,id+"");
+                    return ImageManager.uploadImage(uri,"img/"+id+"");
                 }
 
                 return Status.REGISTERED;

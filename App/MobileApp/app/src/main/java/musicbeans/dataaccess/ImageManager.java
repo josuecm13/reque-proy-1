@@ -68,7 +68,7 @@ public class ImageManager extends AsyncTask<Void,Void,Void>
                 FirebaseStorage storage = FirebaseStorage.getInstance();
                 StorageReference storageRef = storage.getReference();
 
-                StorageReference ref = storageRef.child("img/"+name);
+                StorageReference ref = storageRef.child(name);
                 ref.putFile(uri);
                 return musicbeans.dataaccess.Status.REGISTERED;
             }

@@ -15,6 +15,7 @@ import com.example.admin.musicbeansapp.adapters.CommentAdapter;
 import java.sql.Date;
 import java.util.List;
 
+import musicbeans.dataaccess.ImageManager;
 import musicbeans.dataaccess.Status;
 import musicbeans.entities.Comment;
 import musicbeans.entities.NewsItem;
@@ -57,6 +58,7 @@ public class SelectedNewsActivity extends AppCompatActivity {
         tvTitle = findViewById(R.id.selected_news_title);
         tvbody = findViewById(R.id.selected_news_body);
         imageView = findViewById(R.id.selected_news_image);
+
         commentArea = findViewById(R.id.text_section);
         submitButton = findViewById(R.id.comment_submit);
         submitButton.setOnClickListener(new View.OnClickListener() {
@@ -79,6 +81,8 @@ public class SelectedNewsActivity extends AppCompatActivity {
 
         newsItem = new NewsItem(title,body,null,author,date);
 
+        ImageManager manager = new ImageManager("news/"+newsItem.getImageID(),imageView);
+        manager.execute();
 
         tvTitle.setText(title);
         tvbody.setText(body);

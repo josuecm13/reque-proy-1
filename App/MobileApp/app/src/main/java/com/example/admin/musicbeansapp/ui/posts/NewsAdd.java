@@ -117,7 +117,7 @@ public class NewsAdd extends AppCompatActivity {
             String body = (String )fields[1];
             byte[] photo = getBytes();
             Account account = new Account();
-            status = Posts.publishNews(new NewsItem(title,body,photo));
+            status = Posts.publishNews(path, new NewsItem(title,body,photo));
             return status;
         }
         protected void onPostExecute(musicbeans.dataaccess.Status status)
@@ -133,6 +133,13 @@ public class NewsAdd extends AppCompatActivity {
             if(status== musicbeans.dataaccess.Status.NETWORK_ERROR)
             {
                 Toast.makeText(getApplicationContext(),"Error de conexión", Toast.LENGTH_SHORT).show();
+            }
+            if(status== musicbeans.dataaccess.Status.IMG_FAILED)
+            {
+                Toast.makeText(getApplicationContext(),"Se guardó la noticia pero no su imagen", Toast.LENGTH_SHORT).show();
+                title.setText("");
+                body.setText("");
+                path=null;
             }
         }
     }
