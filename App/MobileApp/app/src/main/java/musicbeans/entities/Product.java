@@ -37,6 +37,16 @@ public class Product {
         this.content = content;
     }
 
+    public Product(int ID, String band, String name, String type, double price, int stock, byte[] content) {
+        this.ID = ID;
+        this.band = band;
+        this.name = name;
+        this.type = type;
+        this.price = price;
+        this.stock = stock;
+        this.content = content;
+    }
+
     public int getID() {
         return ID;
     }

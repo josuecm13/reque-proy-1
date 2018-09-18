@@ -17,18 +17,17 @@ import com.example.admin.musicbeansapp.R;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 
-import musicbeans.dataaccess.Account;
 import musicbeans.dataaccess.Product;
 import musicbeans.dataaccess.Status;
-import musicbeans.entities.Client;
 
 
-public class AddProduct extends AppCompatActivity {
+public class EditProduct extends AppCompatActivity {
 
     EditText name;
     EditText type;
     EditText price;
     EditText stock;
+    int ID;
     Uri path=null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +37,12 @@ public class AddProduct extends AppCompatActivity {
         type = (EditText)findViewById(R.id.txtType);
         price = (EditText)findViewById(R.id.txtPrice);
         stock = (EditText)findViewById(R.id.txtStock);
+
+        name.setText(getIntent().getStringExtra("name"));
+        type.setText(getIntent().getStringExtra("type"));
+        price.setText(getIntent().getStringExtra("price"));
+        stock.setText(getIntent().getStringExtra("stock"));
+        ID = Integer.parseInt(getIntent().getStringExtra("ID"));
     }
     public void uploadPhoto(View v)
     {

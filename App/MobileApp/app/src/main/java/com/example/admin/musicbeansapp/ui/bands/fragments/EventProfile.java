@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import musicbeans.dataaccess.Posts;
 import musicbeans.entities.Event;
 
 /**
@@ -80,13 +81,13 @@ public class EventProfile extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_event_profile, container, false);
 
-        List<Event> list = new ArrayList<>();
+        List<Event> list = Posts.getEvents();//new ArrayList<>();
 
-        java.sql.Date d= new Date(Calendar.getInstance().getTimeInMillis());
+        /*java.sql.Date d= new Date(Calendar.getInstance().getTimeInMillis());
         list.add(new Event(d,"Parque 1","Title1","Descp","band1"));
         list.add(new Event(d,"Parque 1","Title1","Descp","band1"));
         list.add(new Event(d,"Parque 1","Title1","Descp","band1"));
-        list.add(new Event(d,"Parque 1","Title1","Descp","band1"));
+        list.add(new Event(d,"Parque 1","Title1","Descp","band1"));*/
 
         RecyclerView myvr = (RecyclerView)view.findViewById(R.id.event_profile_recycler);
         EventProfileAdapter adapter = new EventProfileAdapter(getActivity(),list);
@@ -105,10 +106,16 @@ public class EventProfile extends Fragment {
     }
     public void newEvent(View v)
     {
+        try{
+            Intent intent = new Intent(getActivity(),
+                    AddEvent.class);
+            startActivity(intent);
+        }catch (Exception e)
+        {
+            System.err.println(e.toString());
+        }
 
-        Intent intent = new Intent(getActivity(),
-                AddEvent.class);
-        startActivity(intent);
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event

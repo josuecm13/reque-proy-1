@@ -82,13 +82,13 @@ public class ProductProfile extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_product_profile, container, false);
 
-        List<Product> list = new ArrayList<>();
+        List<Product> list = musicbeans.dataaccess.Product.getProducts();//new ArrayList<>();
 
-        list.add(new Product(1,"A",12));
+       /* list.add(new Product(1,"A",12));
         list.add(new Product(1,"B",11));
         list.add(new Product(1,"C",2));
         list.add(new Product(1,"D",34));
-        list.add(new Product(1,"E",90));
+        list.add(new Product(1,"E",90));I*/
 
         RecyclerView myvr = (RecyclerView)view.findViewById(R.id.product_profile_recycler);
         ProductProfileAdapter adapter = new ProductProfileAdapter(getActivity(),list);

@@ -38,6 +38,9 @@
         <activity android:name=".ui.posts.NewsAdd" />
         <activity android:name=".ui.bands.BandProfile" />
         <activity android:name=".SelectedNewsActivity"/>
+        <activity android:name=".ui.bands.AddProduct"/>
+        <activity android:name=".ui.bands.fragments.AddEvent"/>
+        <activity android:name=".ui.bands.EditProduct"
     </application>
 
 </manifest>

@@ -179,4 +179,41 @@ public class Posts {
 
     }
 
+    public static List<musicbeans.entities.Event> getEvents ()
+    {
+        Connection connection =  Connector.getConnection2();
+        PreparedStatement pst=null;
+        ResultSet rs = null;
+        List<musicbeans.entities.Event> list = new ArrayList<>();
+        if(connection != null)
+        {
+            try
+            {
+                pst = connection.prepareStatement("select * from Event where band = ?");
+                pst.setString(1,Sesion.getInstance().getUsername());
+                rs=pst.executeQuery();
+                while(rs.next())
+                {
+                    musicbeans.entities.Event event = new musicbeans.entities.Event(rs.getDate("date"),
+                            rs.getString("location"),
+                            rs.getString("Title"),
+                            rs.getString("description"),
+                            rs.getString("band"));
+                    list.add(event);
+                }
+
+            } catch (Exception e)
+            {
+                System.err.println(e.toString());
+            }
+            finally
+            {
+                if (rs != null) try { rs.close(); } catch(Exception e) {}
+                if (pst != null) try { pst.close(); } catch(Exception e) {}
+                if (connection != null) try { connection.close(); } catch(Exception e) {}
+            }
+        }
+        return list;
+    }
+
 }
