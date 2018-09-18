@@ -40,38 +40,30 @@ public class BandListAdapter extends RecyclerView.Adapter<BandListAdapter.BandHo
     @Override
     public void onBindViewHolder(@NonNull final BandHolder holder, final int position) {
         holder.name.setText(bandList.get(position).getUsername());
-        if(!admin){
-            if(musicbeans.dataaccess.Band.validateFavBand(bandList.get(position).getName(), Sesion.getInstance().getUsername()))
+        if(Sesion.getInstance().getAccounType() == Status.ADMIN){
+            holder.fav.setImageResource(R.drawable.ic_delete_black_24dp);
+        }else{
+            if(musicbeans.dataaccess.Band.validateFavBand(bandList.get(position).getUsername(), Sesion.getInstance().getUsername()))
                 holder.fav.setImageResource(R.drawable.ic_favorite_black_24dp);
             else
                 holder.fav.setImageResource(R.drawable.ic_favorite_border_black_24dp_);
-            holder.fav.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View view) {
-                    changeState(holder,position);
-                    return true;
-                }
-            });
-        }else {
-            holder.fav.setImageResource(R.drawable.ic_delete_black_24dp);
-            holder.fav.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View view) {
-                    changeState(holder,position);
-                    return true;
-                }
-            });
-
         }
+        holder.fav.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                changeState(holder,position);
+                return true;
+            }
+        });
     }
 
     private void changeState(BandHolder holder, int position) {
-        if(!admin) {
-            if (musicbeans.dataaccess.Band.validateFavBand(bandList.get(position).getName(), Sesion.getInstance().getUsername())) {
-                musicbeans.dataaccess.Band.removeFavorite(bandList.get(position).getName(), Sesion.getInstance().getUsername());
+        if(Sesion.getInstance().getAccounType() != Status.ADMIN) {
+            if (musicbeans.dataaccess.Band.validateFavBand(bandList.get(position).getUsername(), Sesion.getInstance().getUsername())) {
+                musicbeans.dataaccess.Band.removeFavorite(bandList.get(position).getUsername(), Sesion.getInstance().getUsername());
                 holder.fav.setImageResource(R.drawable.ic_favorite_border_black_24dp_);
             } else {
-                musicbeans.dataaccess.Band.addFavorite(bandList.get(position).getName(), Sesion.getInstance().getUsername());
+                musicbeans.dataaccess.Band.addFavorite(bandList.get(position).getUsername(), Sesion.getInstance().getUsername());
                 holder.fav.setImageResource(R.drawable.ic_favorite_black_24dp);
             }
         }

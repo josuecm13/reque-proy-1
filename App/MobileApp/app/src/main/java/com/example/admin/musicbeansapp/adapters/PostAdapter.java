@@ -1,6 +1,8 @@
 package com.example.admin.musicbeansapp.adapters;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,6 +12,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.admin.musicbeansapp.R;
+import com.example.admin.musicbeansapp.SelectedNewsActivity;
+import com.example.admin.musicbeansapp.UserLoginActivity;
 
 import java.util.List;
 
@@ -36,12 +40,6 @@ public class PostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
                 view = LayoutInflater
                         .from(parent.getContext()).inflate(R.layout.layout_postitem_new, parent, false);
                 holder = new PostNewHolder(view);
-                view.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        // TODO: Open a News Article
-                    }
-                });
                 break;
             default:
                 view = LayoutInflater
@@ -58,6 +56,18 @@ public class PostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
         return holder;
     }
 
+    private void openNews(View view, NewsItem newsItem){
+        Bundle bundle = new Bundle();
+        bundle.putString("Title",newsItem.getTitle());
+        bundle.putString("Body",newsItem.getBody());
+        bundle.putString("Author",newsItem.getAuthor());
+        bundle.putLong("Date",newsItem.getDate().getTime());
+        Intent intent = new Intent(view.getContext(),
+                SelectedNewsActivity.class).putExtras(bundle);
+        view.getContext().startActivity(intent);
+    }
+
+
     @Override
     public int getItemViewType(int position){
         return posts.get(position) instanceof NewsItem? R.layout.layout_postitem_new : R.layout.layout_postitem_event;
@@ -73,6 +83,7 @@ public class PostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
             String date = newsItem.getDate() != null ? newsItem.getDate().toString(): "12/21/2121";
             ((PostNewHolder)holder).date.setText(date);
             ((PostNewHolder)holder).thumbnail.setImageResource(R.drawable.logo);
+            ((PostNewHolder)holder).setNewsListener(newsItem);
         }else{
             final Event event = (Event) posts.get(position);
             ((PostEventHolder)holder).event.setText(event.getTitle());
@@ -100,6 +111,16 @@ public class PostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
             body = itemView.findViewById(R.id.post_newsitem_body);
             date = itemView.findViewById(R.id.post_newsitem_time);
         }
+
+
+        public void setNewsListener(final NewsItem news){
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    openNews(view,news);
+                }
+            });
+        }
     }
 
 
@@ -116,6 +137,9 @@ public class PostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
             band = itemView.findViewById(R.id.post_item_band);
             info = itemView.findViewById(R.id.post_item_body);
         }
+
+
+
     }
 
 }
