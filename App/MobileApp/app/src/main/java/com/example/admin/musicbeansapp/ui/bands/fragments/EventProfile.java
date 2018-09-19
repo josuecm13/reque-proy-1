@@ -23,6 +23,7 @@ import java.util.List;
 
 import musicbeans.dataaccess.Posts;
 import musicbeans.entities.Event;
+import musicbeans.entities.Sesion;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -41,13 +42,17 @@ public class EventProfile extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    boolean client=false;
 
     private OnFragmentInteractionListener mListener;
 
     public EventProfile() {
         // Required empty public constructor
     }
-
+    public void setClient(boolean client)
+    {
+        this.client=client;
+    }
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
@@ -81,7 +86,11 @@ public class EventProfile extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_event_profile, container, false);
 
-        List<Event> list = Posts.getEvents();//new ArrayList<>();
+        List<Event> list;//new ArrayList<>();
+        if(!client)
+            list = Posts.getEvents();
+        else
+            list = Posts.getEvents(Sesion.getInstance().getBand());
 
         /*java.sql.Date d= new Date(Calendar.getInstance().getTimeInMillis());
         list.add(new Event(d,"Parque 1","Title1","Descp","band1"));
@@ -95,6 +104,10 @@ public class EventProfile extends Fragment {
         myvr.setAdapter(adapter);
 
         FloatingActionButton btn = (FloatingActionButton)view.findViewById(R.id.newEvent);
+        if(client)
+        {
+            btn.setVisibility(View.INVISIBLE);
+        }
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

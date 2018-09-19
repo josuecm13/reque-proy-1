@@ -1,6 +1,8 @@
 package com.example.admin.musicbeansapp.adapters;
 
+import android.app.Activity;
 import android.content.Context;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -8,11 +10,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import com.example.admin.musicbeansapp.R;
+import com.example.admin.musicbeansapp.ui.bands.DialogEvent;
 
 
 import java.util.List;
 
+import musicbeans.dataaccess.Status;
 import musicbeans.entities.Event;
+import musicbeans.entities.Sesion;
 
 public class EventProfileAdapter extends RecyclerView.Adapter<EventProfileAdapter.MyViewHolder>{
     private Context mContext;
@@ -39,6 +44,17 @@ public class EventProfileAdapter extends RecyclerView.Adapter<EventProfileAdapte
         holder.date.setText("Fecha: "+mData.get(postition).getDate().toString());
         holder.time.setText("Hora: "+mData.get(postition).getTitle());
         holder.location.setText("Lugar: "+mData.get(postition).getLocation());
+        if(Sesion.getInstance().getAccounType()== Status.CLIENT)
+        {
+            holder.cardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    DialogEvent dialogEvent = new DialogEvent();
+                    dialogEvent.setEvent(mData.get(postition));
+                    dialogEvent.show(((AppCompatActivity)mContext).getSupportFragmentManager(),"event");
+                }
+            });
+        }
     }
     @Override
     public int getItemCount(){

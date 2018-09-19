@@ -131,6 +131,43 @@ public class Product
         return list;
     }
 
+    public static List<musicbeans.entities.Product> getProducts (String band)
+    {
+        Connection connection =  Connector.getConnection2();
+        PreparedStatement pst=null;
+        ResultSet rs = null;
+        List<musicbeans.entities.Product> list = new ArrayList<>();
+        if(connection != null)
+        {
+            try
+            {
+                pst = connection.prepareStatement("select * from Product where band = ?");
+                pst.setString(1,band);
+                rs=pst.executeQuery();
+                while(rs.next())
+                {
+                    musicbeans.entities.Product product = new musicbeans.entities.Product(rs.getInt("id"),
+                            rs.getString("band"),
+                            rs.getString("name"),rs.getString("type"),
+                            rs.getDouble("price"),
+                            rs.getInt("stock"),null);
+                    list.add(product);
+                }
+
+            } catch (Exception e)
+            {
+                System.err.println(e.toString());
+            }
+            finally
+            {
+                if (rs != null) try { rs.close(); } catch(Exception e) {}
+                if (pst != null) try { pst.close(); } catch(Exception e) {}
+                if (connection != null) try { connection.close(); } catch(Exception e) {}
+            }
+        }
+        return list;
+    }
+
     public static Status deleteProduct (musicbeans.entities.Product product)
     {
         Connection connection = Connector.getConnection2();

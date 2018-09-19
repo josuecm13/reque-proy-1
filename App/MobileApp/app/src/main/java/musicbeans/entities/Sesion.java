@@ -7,6 +7,7 @@ public class Sesion{
     private static Sesion instance;
     private String username;
     private Status accounType;
+    private  String viewBand;
 
 
     public static Sesion getInstance() {
@@ -38,4 +39,7 @@ public class Sesion{
         this.accounType = status;
     }
 
+    public void setBand(String band){this.viewBand=band;}
+
+    public String getBand(){return  viewBand;}
 }

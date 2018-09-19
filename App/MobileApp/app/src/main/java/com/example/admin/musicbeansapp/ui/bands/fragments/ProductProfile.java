@@ -26,6 +26,7 @@ import java.util.List;
 import musicbeans.dataaccess.ImageManager;
 import musicbeans.entities.Event;
 import musicbeans.entities.Product;
+import musicbeans.entities.Sesion;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -44,11 +45,15 @@ public class ProductProfile extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
+    boolean client=false;
     private OnFragmentInteractionListener mListener;
 
     public ProductProfile() {
         // Required empty public constructor
+    }
+
+    public void setClient(boolean client) {
+        this.client = client;
     }
 
     /**
@@ -84,13 +89,11 @@ public class ProductProfile extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_product_profile, container, false);
 
-        List<Product> list = musicbeans.dataaccess.Product.getProducts();//new ArrayList<>();
-        String[] uri = new String[list.size()];
-        ImageView[] img = new ImageView[list.size()];
-        for(int i=0;i<list.size();i++)
-        {
-            uri[i]="img/"+ list.get(i).getID();
-        }
+        List<Product> list;
+        if(!client)
+            list = musicbeans.dataaccess.Product.getProducts();
+        else
+            list = musicbeans.dataaccess.Product.getProducts(Sesion.getInstance().getBand());
        /* list.add(new Product(1,"A",12));
         list.add(new Product(1,"B",11));
         list.add(new Product(1,"C",2));
@@ -105,6 +108,10 @@ public class ProductProfile extends Fragment {
         myvr.setAdapter(adapter);
 
         FloatingActionButton btn = (FloatingActionButton)view.findViewById(R.id.newProduct);
+        if(client)
+        {
+            btn.setVisibility(View.INVISIBLE);
+        }
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

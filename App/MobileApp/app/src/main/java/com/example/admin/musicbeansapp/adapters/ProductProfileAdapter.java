@@ -1,6 +1,7 @@
 package com.example.admin.musicbeansapp.adapters;
 
 import android.content.Context;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,6 +12,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.admin.musicbeansapp.R;
+import com.example.admin.musicbeansapp.ui.bands.DialogEvent;
+import com.example.admin.musicbeansapp.ui.bands.DialogProduct;
 
 import java.util.List;
 
@@ -18,14 +21,22 @@ import musicbeans.dataaccess.ImageManager;
 import musicbeans.dataaccess.Status;
 import musicbeans.entities.Event;
 import musicbeans.entities.Product;
+import musicbeans.entities.Sesion;
 
 public class ProductProfileAdapter extends RecyclerView.Adapter<ProductProfileAdapter.MyViewHolder>{
     private Context mContext;
     private List<Product> mData;
     private View v;
+    boolean client=false;
     public ProductProfileAdapter(Context mContext, List<Product> mData) {
         this.mContext = mContext;
         this.mData = mData;
+    }
+
+    public ProductProfileAdapter(Context mContext, List<Product> mData,boolean client) {
+        this.mContext = mContext;
+        this.mData = mData;
+        this.client=client;
     }
 
     @Override
@@ -43,15 +54,36 @@ public class ProductProfileAdapter extends RecyclerView.Adapter<ProductProfileAd
     {
         holder.name.setText(mData.get(postition).getName());
         holder.price.setText("$"+mData.get(postition).getPrice());
+        if(Sesion.getInstance().getAccounType()==Status.CLIENT)
+        {
+            holder.delete.setImageResource(R.drawable.ic_add_black_24dp);
+            holder.edit.setVisibility(View.INVISIBLE);
+        }
         ImageManager manager = new ImageManager("img/"+mData.get(postition).getID(),holder.photo);
         manager.execute();
-        holder.delete.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View view) {
-                delete(holder,postition);
-                return true;
-            }
-        });
+        if(Sesion.getInstance().getAccounType()!=Status.CLIENT)
+        {
+            holder.delete.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    delete(holder,postition);
+                    return true;
+                }
+            });
+        }
+        else
+        {
+            holder.delete.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    DialogProduct dialogProduct = new DialogProduct();
+                    dialogProduct.setContext(mContext);
+                    dialogProduct.show(((AppCompatActivity)mContext).getSupportFragmentManager(),"product");
+                    return true;
+                }
+            });
+        }
+
 
     }
     public void delete(MyViewHolder holder,int position)

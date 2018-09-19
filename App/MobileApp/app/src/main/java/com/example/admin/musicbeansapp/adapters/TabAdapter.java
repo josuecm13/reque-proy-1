@@ -11,10 +11,17 @@ import com.example.admin.musicbeansapp.ui.bands.fragments.ProductProfile;
 public class TabAdapter extends FragmentStatePagerAdapter {
 
     int tabNumber;
+    boolean client=false;
     public TabAdapter(FragmentManager fm,int tabNumber)
     {
         super(fm);
         this.tabNumber=tabNumber;
+    }
+    public TabAdapter(FragmentManager fm,int tabNumber,boolean client)
+    {
+        super(fm);
+        this.tabNumber=tabNumber;
+        this.client=client;
     }
     @Override
     public Fragment getItem(int position) {
@@ -22,9 +29,11 @@ public class TabAdapter extends FragmentStatePagerAdapter {
        {
            case 0:
                EventProfile tab1 = new EventProfile();
+               tab1.setClient(client);
                return tab1;
            case 1:
                ProductProfile tab2 = new ProductProfile();
+               tab2.setClient(client);
                return  tab2;
            case 2:
                DescriptionProfile tab3 = new DescriptionProfile();

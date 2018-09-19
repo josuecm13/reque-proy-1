@@ -1,5 +1,7 @@
 package com.example.admin.musicbeansapp.adapters;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,6 +12,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.admin.musicbeansapp.R;
+import com.example.admin.musicbeansapp.ui.bands.BandProfileClient;
+import com.example.admin.musicbeansapp.ui.posts.MainMenuActivity;
 
 import java.util.List;
 
@@ -47,6 +51,13 @@ public class BandListAdapter extends RecyclerView.Adapter<BandListAdapter.BandHo
                 holder.fav.setImageResource(R.drawable.ic_favorite_black_24dp);
             else
                 holder.fav.setImageResource(R.drawable.ic_favorite_border_black_24dp_);
+            holder.image.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    viewProfile(holder,position);
+                    return true;
+                }
+            });
         }
         holder.fav.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
@@ -56,7 +67,13 @@ public class BandListAdapter extends RecyclerView.Adapter<BandListAdapter.BandHo
             }
         });
     }
-
+    private void viewProfile(BandHolder holder,int position)
+    {
+        Sesion.getInstance().setBand(bandList.get(position).getUsername());
+        Intent intent = new Intent(v.getContext(),
+                BandProfileClient.class);
+        ((Activity)v.getContext()).startActivityForResult(intent,0);
+    }
     private void changeState(BandHolder holder, int position) {
         if(Sesion.getInstance().getAccounType() != Status.ADMIN) {
             if (musicbeans.dataaccess.Band.validateFavBand(bandList.get(position).getUsername(), Sesion.getInstance().getUsername())) {
@@ -93,11 +110,12 @@ public class BandListAdapter extends RecyclerView.Adapter<BandListAdapter.BandHo
 
         TextView name;
         ImageView fav;
-
+        ImageView image;
         public BandHolder(View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.bandlist_item_name);
             fav = itemView.findViewById(R.id.bandlist_item_fav);
+            image = itemView.findViewById(R.id.bandlist_item_image);
         }
     }
 
