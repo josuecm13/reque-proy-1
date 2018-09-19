@@ -7,6 +7,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.admin.musicbeansapp.R;
 import com.example.admin.musicbeansapp.adapters.TabAdapter;
@@ -14,7 +15,11 @@ import com.example.admin.musicbeansapp.ui.bands.fragments.DescriptionProfile;
 import com.example.admin.musicbeansapp.ui.bands.fragments.EventProfile;
 import com.example.admin.musicbeansapp.ui.bands.fragments.ProductProfile;
 
+import org.w3c.dom.Text;
+
 import musicbeans.dataaccess.ImageManager;
+import musicbeans.entities.Band;
+import musicbeans.entities.Sesion;
 
 public class BandProfileClient extends AppCompatActivity implements EventProfile.OnFragmentInteractionListener,DescriptionProfile.OnFragmentInteractionListener,ProductProfile.OnFragmentInteractionListener {
 
@@ -27,10 +32,11 @@ public class BandProfileClient extends AppCompatActivity implements EventProfile
         tabLayout.addTab(tabLayout.newTab().setText("Tienda"));
         tabLayout.addTab(tabLayout.newTab().setText("Descripción"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-        String url = "img/banda1.PNG";
+
         ImageView view = (ImageView)findViewById(R.id.profile);
-        ImageManager img = new ImageManager(url,view);
-        img.execute();
+
+        LoadInfo info = new LoadInfo();
+        info.execute();
         final ViewPager viewPager = (ViewPager)findViewById(R.id.pager);
         final TabAdapter adapter = new TabAdapter(getSupportFragmentManager(),tabLayout.getTabCount(),true);
         viewPager.setAdapter(adapter);
@@ -72,6 +78,28 @@ public class BandProfileClient extends AppCompatActivity implements EventProfile
         protected void onPostExecute(Void _void)
         {
 
+        }
+    }
+
+    class LoadInfo extends AsyncTask<Void,Void,Void>
+    {
+        @Override
+        protected void onPostExecute(Void aVoid) {
+
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            String band = Sesion.getInstance().getBand();
+            Band _band = musicbeans.dataaccess.Band.getBand(band);
+
+            TextView _name = findViewById(R.id.bandName);
+            TextView _rating = findViewById(R.id.rating);
+            if(_band!=null) {
+                _name.setText(_band.getUsername());
+                _rating.setText(_band.getRate() + "");
+            }
+            return null;
         }
     }
 }

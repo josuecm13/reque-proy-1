@@ -42,6 +42,35 @@ public class Band {
         return result;
     }
 
+    public static musicbeans.entities.Band getBand(String band){
+        Connection connection =  Connector.getConnection2();
+
+        PreparedStatement pst=null;
+        ResultSet rs=null;
+        if (connection != null) {
+            try {
+                pst = connection.prepareStatement("Select top 1 * from Band where username=?");
+                pst.setString(1,band);
+                rs = pst.executeQuery();
+                while (rs.next()) {
+                    return (new musicbeans.entities.Band(rs.getString("username"),"",
+                            null,"",
+                            rs.getString("description"),rs.getByte("rating"),
+                            rs.getBytes("banner_photo"),"gege"));
+                }
+            }  catch (Exception e)
+            {
+                System.err.println(e.toString());
+            }
+            finally
+            {
+                if (rs != null) try { rs.close(); } catch(Exception e) {}
+                if (pst != null) try { pst.close(); } catch(Exception e) {}
+                if (connection != null) try { connection.close(); } catch(Exception e) {}
+            }
+        }
+        return null;
+    }
 
     public static boolean validateFavBand(String bandname, String username){
         Connection connection =  Connector.getConnection2();
