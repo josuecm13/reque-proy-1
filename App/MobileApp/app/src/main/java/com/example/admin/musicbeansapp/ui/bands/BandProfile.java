@@ -7,6 +7,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.admin.musicbeansapp.R;
 import com.example.admin.musicbeansapp.adapters.TabAdapter;
@@ -15,6 +16,8 @@ import com.example.admin.musicbeansapp.ui.bands.fragments.EventProfile;
 import com.example.admin.musicbeansapp.ui.bands.fragments.ProductProfile;
 
 import musicbeans.dataaccess.ImageManager;
+import musicbeans.entities.Band;
+import musicbeans.entities.Sesion;
 
 public class BandProfile extends AppCompatActivity implements EventProfile.OnFragmentInteractionListener,DescriptionProfile.OnFragmentInteractionListener,ProductProfile.OnFragmentInteractionListener {
 
@@ -31,6 +34,8 @@ public class BandProfile extends AppCompatActivity implements EventProfile.OnFra
         ImageView view = (ImageView)findViewById(R.id.profile);
         ImageManager img = new ImageManager(url,view);
         img.execute();
+        LoadInfo info = new LoadInfo();
+        info.execute();
         final ViewPager viewPager = (ViewPager)findViewById(R.id.pager);
         final TabAdapter adapter = new TabAdapter(getSupportFragmentManager(),tabLayout.getTabCount());
         viewPager.setAdapter(adapter);
@@ -57,21 +62,25 @@ public class BandProfile extends AppCompatActivity implements EventProfile.OnFra
     {
 
     }
-    class RegisterBand extends AsyncTask<Void,Void,Void>
+    class LoadInfo extends AsyncTask<Void,Void,Void>
     {
-        public RegisterBand(){}
-        protected Void doInBackground(Void... fields)
-        {
-            String[] url = new String[]{"img/banda1.PNG"};
-            ImageView[] view = new ImageView[]{(ImageView)findViewById(R.id.profile)};
-            //ImageManager imn = new ImageManager();
-            //imn.loadImages(url,view);
+        @Override
+        protected void onPostExecute(Void aVoid) {
 
-            return  null;
         }
-        protected void onPostExecute(Void _void)
-        {
 
+        @Override
+        protected Void doInBackground(Void... voids) {
+            String band = Sesion.getInstance().getBand();
+            Band _band = musicbeans.dataaccess.Band.getBand(band);
+
+            TextView _name = findViewById(R.id.bandName);
+            TextView _rating = findViewById(R.id.rating);
+            if(_band!=null) {
+                _name.setText(_band.getUsername());
+                _rating.setText(_band.getRate() + "");
+            }
+            return null;
         }
     }
 }

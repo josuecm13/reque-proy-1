@@ -7,11 +7,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import musicbeans.entities.Band;
 import musicbeans.entities.Event;
@@ -210,7 +215,9 @@ public class Posts {
                 rs=pst.executeQuery();
                 while(rs.next())
                 {
-                    musicbeans.entities.Event event = new musicbeans.entities.Event(rs.getDate("date"),
+                    Timestamp timestamp = rs.getTimestamp("date");
+                    Date d = new Date(timestamp.getTime());
+                    musicbeans.entities.Event event = new musicbeans.entities.Event(d,
                             rs.getString("location"),
                             rs.getString("Title"),
                             rs.getString("description"),
@@ -266,5 +273,42 @@ public class Posts {
             }
         }
         return list;
+    }
+    public static Status deleteEvent (musicbeans.entities.Event event)
+    {
+        Connection connection = Connector.getConnection2();
+        PreparedStatement pst=null;
+        ResultSet rs=null;
+        if(connection!=null)
+        {
+            try
+            {
+                pst = connection.prepareStatement("select * from event where date=? and band=?");
+                pst.setTimestamp(1,new Timestamp(event.getDate().getTime()));
+                pst.setString(2,event.getBanda());
+                rs = pst.executeQuery();
+                boolean exits = rs.next();
+                if(exits)
+                {
+                    pst = connection.prepareStatement("delete event where date=? and band=?");
+                    pst.setTimestamp(1,new Timestamp(event.getDate().getTime()));
+                    pst.setString(2,event.getBanda());
+                    pst.executeUpdate();
+                    return Status.OK;
+                }
+                else return Status.FAILED;
+            }
+            catch (Exception e)
+            {
+                System.err.println(e.toString());
+            }
+            finally
+            {
+                if (pst != null) try { pst.close(); } catch(Exception ignored) {}
+                if (rs != null) try { rs.close(); } catch(Exception ignored) {}
+                if (connection != null) try { connection.close(); } catch(Exception ignored) {}
+            }
+        }
+        return Status.FAILED;
     }
 }

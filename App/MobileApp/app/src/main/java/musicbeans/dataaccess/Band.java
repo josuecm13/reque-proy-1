@@ -10,6 +10,7 @@ import java.util.List;
 
 import musicbeans.entities.Event;
 import musicbeans.entities.NewsItem;
+import musicbeans.entities.Sesion;
 
 public class Band {
 
@@ -183,6 +184,73 @@ public class Band {
         }
         return Status.NETWORK_ERROR;
     }
+    public static  Status rateBand(String band,byte rate)
+    {
+        Connection connection =  Connector.getConnection2();
+        PreparedStatement pst=null;
+        int rs= 0;
+        ResultSet _rs=null;
+        if (connection != null) {
+            try {
 
+                pst = connection.prepareStatement("select top 1 * from rating where band=? and client=?");
+                pst.setString(1, band);
+                pst.setString(2, Sesion.getInstance().getUsername());
+                _rs=pst.executeQuery();
+                if(_rs.next())
+                {
+                    pst = connection.prepareStatement("update rating set rating=? where band=? and client=?");
+                    pst.setInt(1, rate);
+                    pst.setString(2, band);
+                    pst.setString(3, Sesion.getInstance().getUsername());
+                    rs = pst.executeUpdate();
+                }
+                else {
+                    pst = connection.prepareStatement("insert into rating (band,client,date,rating) values(?,?,getdate(),?)");
+                    pst.setString(1, band);
+                    pst.setString(2, Sesion.getInstance().getUsername());
+                    pst.setInt(3, rate);
+                    rs = pst.executeUpdate();
+                }
 
+            }  catch (Exception e)
+            {
+                System.err.println(e.toString());
+                return Status.NETWORK_ERROR;
+            }
+            finally
+            {
+                if (pst != null) try { pst.close(); } catch(Exception ignored) {}
+                if (connection != null) try { connection.close(); } catch(Exception ignored) {}
+                if (_rs != null) try { _rs.close(); } catch(Exception ignored) {}
+            }
+        }
+        return Status.OK;
+    }
+    public static double getBandRating(String band){
+        Connection connection =  Connector.getConnection2();
+
+        PreparedStatement pst=null;
+        ResultSet rs=null;
+        if (connection != null) {
+            try {
+                pst = connection.prepareStatement("Select top 1 avg(cast(rating as float)) rat from Rating where band=?");
+                pst.setString(1,band);
+                rs = pst.executeQuery();
+                while (rs.next()) {
+                    return rs.getDouble("rat");
+                }
+            }  catch (Exception e)
+            {
+                System.err.println(e.toString());
+            }
+            finally
+            {
+                if (rs != null) try { rs.close(); } catch(Exception e) {}
+                if (pst != null) try { pst.close(); } catch(Exception e) {}
+                if (connection != null) try { connection.close(); } catch(Exception e) {}
+            }
+        }
+        return -1;
+    }
 }

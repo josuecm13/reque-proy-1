@@ -8,7 +8,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.example.admin.musicbeansapp.R;
 import com.example.admin.musicbeansapp.ui.bands.DialogEvent;
 
@@ -38,7 +41,7 @@ public class EventProfileAdapter extends RecyclerView.Adapter<EventProfileAdapte
 
     }
     @Override
-    public void onBindViewHolder(MyViewHolder holder,final int postition)
+    public void onBindViewHolder(final MyViewHolder holder, final int postition)
     {
         holder.title.setText(mData.get(postition).getTitle());
         holder.date.setText("Fecha: "+mData.get(postition).getDate().toString());
@@ -55,6 +58,32 @@ public class EventProfileAdapter extends RecyclerView.Adapter<EventProfileAdapte
                 }
             });
         }
+        else
+        {
+            holder.delete.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    delete(holder,postition);
+                    return true;
+                }
+            });
+        }
+    }
+    public void delete(EventProfileAdapter.MyViewHolder holder, int position)
+    {
+        Status status = musicbeans.dataaccess.Posts.deleteEvent(mData.get(position));
+        if (holder.itemView != null) {
+            if (status == Status.NETWORK_ERROR)
+                Toast.makeText(holder.itemView.getContext(), "Error de conexión", Toast.LENGTH_SHORT).show();
+            if (status == Status.OK) {
+                Toast.makeText(holder.itemView.getContext(), "Se eliminó correctamente", Toast.LENGTH_SHORT).show();
+                mData.remove(position);
+                notifyItemRemoved(position);
+            }
+            if(status==Status.FAILED){
+                Toast.makeText(holder.itemView.getContext(), "No se puedo eliminar", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
     @Override
     public int getItemCount(){
@@ -67,6 +96,7 @@ public class EventProfileAdapter extends RecyclerView.Adapter<EventProfileAdapte
         TextView time;
         TextView location;
         CardView cardView;
+        ImageView delete;
         public MyViewHolder(View itemView)
         {
             super(itemView);
@@ -75,6 +105,7 @@ public class EventProfileAdapter extends RecyclerView.Adapter<EventProfileAdapte
             time = (TextView)itemView.findViewById(R.id.time);
             location = (TextView)itemView.findViewById(R.id.location);
             cardView = (CardView)itemView.findViewById(R.id.card_view_id);
+            delete = itemView.findViewById(R.id.deleteEvent);
         }
     }
 }
