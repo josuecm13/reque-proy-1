@@ -17,6 +17,7 @@ import com.example.admin.musicbeansapp.ui.posts.MainMenuActivity;
 
 import java.util.List;
 
+import musicbeans.dataaccess.ImageManager;
 import musicbeans.dataaccess.Status;
 import musicbeans.entities.Band;
 import musicbeans.entities.Sesion;
@@ -44,6 +45,9 @@ public class BandListAdapter extends RecyclerView.Adapter<BandListAdapter.BandHo
     @Override
     public void onBindViewHolder(@NonNull final BandHolder holder, final int position) {
         holder.name.setText(bandList.get(position).getUsername());
+        ImageManager manager = new ImageManager("users/"+bandList.get(position).getUsername(),holder.image);
+        manager.size=true;
+        manager.execute();
         if(Sesion.getInstance().getAccounType() == Status.ADMIN){
             holder.fav.setImageResource(R.drawable.ic_delete_black_24dp);
         }else{

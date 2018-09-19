@@ -2,6 +2,7 @@ package musicbeans.dataaccess;
 
 
 
+import android.net.Uri;
 import android.util.Base64;
 
 import musicbeans.entities.Band;
@@ -22,11 +23,12 @@ public class Account
      * @param client
      * @return
      */
-    public Status registerClient (Client client)
+    public Status registerClient (Uri uri, Client client)
     {
         Connection connection =  Connector.getConnection2();
         PreparedStatement pst=null;
         ResultSet rs = null;
+        boolean inserted =false;
         if(connection != null)
         {
             try
@@ -39,20 +41,18 @@ public class Account
                 pst = connection.prepareStatement("insert into Account (username,password)values(?,?)");
                 pst.setString(1,client.getUsername());
                 pst.setString(2,client.getPassword());
-                //pst.setBytes(3,client.getProfile_photo());
-               // pst.setBinaryStream(3,new ByteArrayInputStream(client.getProfile_photo()),client.getProfile_photo().length);
-                //pst.setString(3, Base64.encodeToString(client.getProfile_photo(),Base64.NO_WRAP));
                 pst.executeUpdate();
 
-                //pst.setString(1,client.getUsername());
-               // pst.setString(2, Base64.encodeToString(client.getProfile_photo(),Base64.NO_WRAP));
                 pst = connection.prepareStatement("insert into Client values (?,?)");
                 pst.setString(1,client.getUsername());
                 pst.setString(2,client.getName());
                 pst.executeUpdate();
-                return Status.REGISTERED;
+
+                inserted=true;
+                return ImageManager.uploadImage(uri,"users/"+client.getUsername());
             } catch (Exception e)
             {
+                if(inserted)return Status.IMG_FAILED;
                 System.err.println(e.toString());
             }
             finally

@@ -134,9 +134,9 @@ public class UserRegister extends AppCompatActivity {
             String name = (String) fields[0];
             String user = (String )fields[1];
             String password = (String) fields[2];
-            byte[] photo = getBytes();
+           // byte[] photo = getBytes();
             Account account = new Account();
-            status = account.registerClient(new Client(user,password,photo,name));
+            status = account.registerClient(path,new Client(user,password,null,name));
             return status;
         }
         protected void onPostExecute(musicbeans.dataaccess.Status status)

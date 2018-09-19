@@ -23,6 +23,7 @@ public class ImageManager extends AsyncTask<Void,Void,Void>
 {
     public String url;
     public ImageView view;
+    public boolean size=false;
 
     public ImageManager(String url, ImageView view) {
         this.url = url;
@@ -40,13 +41,24 @@ public class ImageManager extends AsyncTask<Void,Void,Void>
                 final ImageView _img = img;
                 StorageReference _ref = storageRef.child(_url);
                 final long ONE_MEGABYTE = 1024 * 1024*10;
-                _ref.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
-                    @Override
-                    public void onSuccess(byte[] bytes) {
-                        Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-                        _img.setImageBitmap(Bitmap.createBitmap(bmp));
-                    }
-                });
+                if(!size) {
+                    _ref.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                        @Override
+                        public void onSuccess(byte[] bytes) {
+                            Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                            _img.setImageBitmap(Bitmap.createBitmap(bmp));
+                        }
+                    });
+                }
+                else {
+                    _ref.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                        @Override
+                        public void onSuccess(byte[] bytes) {
+                            Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                            _img.setImageBitmap(Bitmap.createScaledBitmap(bmp,_img.getWidth(),_img.getHeight(),false));
+                        }
+                    });
+                }
             }catch (Exception e) {
                 System.err.println(e.toString());
             }

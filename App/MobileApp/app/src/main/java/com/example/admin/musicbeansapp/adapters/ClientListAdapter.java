@@ -13,6 +13,7 @@ import com.example.admin.musicbeansapp.R;
 
 import java.util.List;
 
+import musicbeans.dataaccess.ImageManager;
 import musicbeans.dataaccess.Status;
 import musicbeans.entities.Band;
 import musicbeans.entities.Client;
@@ -38,8 +39,10 @@ public class ClientListAdapter extends RecyclerView.Adapter<ClientListAdapter.Ba
 
     @Override
     public void onBindViewHolder(@NonNull final BandHolder holder, final int position) {
-        holder.name.setText(clientList.get(position).getUsername());
-
+            holder.name.setText(clientList.get(position).getUsername());
+        ImageManager manager = new ImageManager("users/"+clientList.get(position).getUsername(),holder.client);
+        manager.size=true;
+        manager.execute();
             holder.fav.setImageResource(R.drawable.ic_delete_black_24dp);
             holder.fav.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
@@ -77,11 +80,12 @@ public class ClientListAdapter extends RecyclerView.Adapter<ClientListAdapter.Ba
 
         TextView name;
         ImageView fav;
-
+        ImageView client;
         public BandHolder(View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.clientlist_item_name);
             fav = itemView.findViewById(R.id.clientlist_item_fav);
+            client = itemView.findViewById(R.id.clientlist_item_image);
         }
     }
 
