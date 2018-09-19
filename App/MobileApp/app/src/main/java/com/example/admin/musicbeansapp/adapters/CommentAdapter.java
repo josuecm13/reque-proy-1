@@ -12,15 +12,21 @@ import com.example.admin.musicbeansapp.R;
 import java.util.List;
 
 import musicbeans.entities.Comment;
+import musicbeans.entities.NewsItem;
 
 public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentHolder>{
 
     List<Comment> commentList;
+    NewsItem item;
 
     public CommentAdapter(List<Comment> commentList){
         this.commentList =commentList;
     }
 
+    public CommentAdapter(List<Comment> commentList, NewsItem item) {
+        this.commentList = commentList;
+        this.item = item;
+    }
 
     @NonNull
     @Override
@@ -33,6 +39,14 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentH
     public void onBindViewHolder(@NonNull CommentHolder holder, int position) {
         holder.username.setText(commentList.get(position).getUsername());
         holder.comment.setText(commentList.get(position).getComment());
+    }
+
+    public void update(){
+        if (item != null){
+            commentList = musicbeans.dataaccess.Comment.getComments(item);
+            notifyDataSetChanged();
+            notifyItemInserted(getItemCount()+1);
+        }
     }
 
     @Override

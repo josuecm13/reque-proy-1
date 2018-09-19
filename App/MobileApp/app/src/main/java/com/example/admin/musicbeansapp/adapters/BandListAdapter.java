@@ -59,11 +59,10 @@ public class BandListAdapter extends RecyclerView.Adapter<BandListAdapter.BandHo
                 }
             });
         }
-        holder.fav.setOnLongClickListener(new View.OnLongClickListener() {
+        holder.fav.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onLongClick(View view) {
+            public void onClick(View view) {
                 changeState(holder,position);
-                return true;
             }
         });
     }

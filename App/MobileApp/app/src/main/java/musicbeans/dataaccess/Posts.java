@@ -36,7 +36,7 @@ public class Posts {
                     result.add(new NewsItem(rs.getString("title"),rs.getString("body"),rs.getBytes("photo"),rs.getString("author"),rs.getDate("date")));
                 }
                 pst = connection.prepareStatement
-                        ("select * " +
+                        ("select n.* " +
                                 "from event n inner join favoriteband fb on (n.band = fb.band) " +
                                 "inner join Client c on (c.username = fb.client)" +
                                 "where c.username = ?");

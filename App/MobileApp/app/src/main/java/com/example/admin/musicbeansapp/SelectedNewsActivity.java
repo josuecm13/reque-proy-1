@@ -1,5 +1,7 @@
 package com.example.admin.musicbeansapp;
 
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -50,6 +52,7 @@ public class SelectedNewsActivity extends AppCompatActivity {
         return true;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,6 +64,14 @@ public class SelectedNewsActivity extends AppCompatActivity {
 
         commentArea = findViewById(R.id.text_section);
         submitButton = findViewById(R.id.comment_submit);
+        //commentArea.setFocusedByDefault(false);
+        commentArea.setFocusableInTouchMode(true);
+
+        if (Sesion.getInstance().getAccounType() != Status.CLIENT){
+            commentArea.setClickable(false);
+            commentArea.setFocusable(false);
+        }
+
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -68,7 +79,7 @@ public class SelectedNewsActivity extends AppCompatActivity {
                 if (!commentempty(text))
                     if (musicbeans.dataaccess.Comment.insertComment(text, Sesion.getInstance().getUsername(),newsItem) == Status.OK){
                         commentArea.setText("");
-                        adapter.notifyDataSetChanged();
+                        adapter.update();
                     }
             }
         });
@@ -92,7 +103,7 @@ public class SelectedNewsActivity extends AppCompatActivity {
 
         commentList = musicbeans.dataaccess.Comment.getComments(newsItem);
 
-        adapter = new CommentAdapter(commentList);
+        adapter = new CommentAdapter(commentList,newsItem);
         recyclerView.setAdapter(adapter);
 
 

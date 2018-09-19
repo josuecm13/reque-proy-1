@@ -17,7 +17,7 @@ public class Event extends Posts {
         this.location = location;
         this.title = title;
         this.description = description;
-        this.banda=banda;
+        this.banda = banda;
 
     }
 

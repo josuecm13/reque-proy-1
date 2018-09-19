@@ -11,12 +11,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.example.admin.musicbeansapp.UserLoginActivity;
 import com.example.admin.musicbeansapp.R;
 import com.example.admin.musicbeansapp.ui.posts.fragments.BandListFragment;
 import com.example.admin.musicbeansapp.ui.posts.fragments.FavBandFragment;
 import com.example.admin.musicbeansapp.ui.posts.fragments.PostFragment;
+
+import musicbeans.entities.Sesion;
 
 
 public class MainMenuActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
@@ -35,6 +38,8 @@ public class MainMenuActivity extends AppCompatActivity implements NavigationVie
 
         drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
+
+
         navigationView.setNavigationItemSelectedListener(this);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
