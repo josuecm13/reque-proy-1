@@ -73,8 +73,16 @@ hola hola hola hola hola hola hola hola hola"/>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Comentarios"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                android:textSize="32sp"
+                android:background="@color/colorPrimaryDark"/>
 
            <include layout="@layout/comment_write_layout"
                android:id="@+id/selected_news_comment_writer"/>
@@ -84,7 +92,8 @@ hola hola hola hola hola hola hola hola hola"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:background="@color/colorPrimaryDark">
 
             <android.support.v7.widget.RecyclerView
                 android:layout_width="match_parent"

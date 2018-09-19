@@ -24,7 +24,8 @@ public class Comment {
                 pst = connection.prepareStatement
                         ("Select c.* " +
                                 "from Comment c inner join News n on (c.news_date = n.date)" +
-                        " where n.title = ? and n.author = ? and n.body = ?" );
+                        " where n.title = ? and n.author = ? and n.body = ?" +
+                                "order by date desc" );
                 pst.setString(1,item.getTitle());
                 pst.setString(2,item.getAuthor());
                 pst.setString(3,item.getBody());
