@@ -166,7 +166,6 @@ public class BandProfileClient extends AppCompatActivity implements EventProfile
                 });
 
             }
-
             return null;
         }
     }

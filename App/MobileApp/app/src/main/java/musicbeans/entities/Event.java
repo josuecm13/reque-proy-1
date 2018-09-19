@@ -1,5 +1,6 @@
 package musicbeans.entities;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Event extends Posts {
@@ -58,4 +59,16 @@ public class Event extends Posts {
     }
 
     public java.sql.Date getDateSQL(){return new java.sql.Date(date.getTime());}
+
+    public String getDateDay()
+    {
+        SimpleDateFormat mask = new SimpleDateFormat("dd-MM-yyyy");
+        return mask.format(date);
+    }
+
+    public String getDateTime()
+    {
+        SimpleDateFormat mask = new SimpleDateFormat("hh:mm");
+        return mask.format(date);
+    }
 }

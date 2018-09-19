@@ -1,21 +1,27 @@
 package com.example.admin.musicbeansapp.ui.bands.fragments;
 
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.admin.musicbeansapp.R;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
+import java.text.DateFormat;
 import java.util.Calendar;
 
 import musicbeans.dataaccess.Account;
@@ -25,12 +31,14 @@ import musicbeans.entities.Client;
 import musicbeans.entities.Event;
 
 
-public class AddEvent extends AppCompatActivity {
+public class AddEvent extends AppCompatActivity implements DatePickerDialog.OnDateSetListener,TimePickerDialog.OnTimeSetListener {
 
     EditText title;
     EditText location;
     EditText date;
     EditText description;
+    EditText time;
+    Calendar c =Calendar.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,8 +47,36 @@ public class AddEvent extends AppCompatActivity {
         location = (EditText)findViewById(R.id.txtLocation);
         date = (EditText)findViewById(R.id.txtDate);
         description = (EditText)findViewById(R.id.txtDescription);
+        time = (EditText)findViewById(R.id.txtTime);
     }
 
+    public void OpenDate(View v)
+    {
+        DialogFragment datePicker = new DatePickerFragment();
+        datePicker.show(getSupportFragmentManager(),"date picker");
+    }
+    public void OpenTime(View v)
+    {
+        DialogFragment datePicker = new TimePickerFragment();
+        datePicker.show(getSupportFragmentManager(),"time picker");
+    }
+
+    @Override
+    public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+
+        c.set(Calendar.YEAR,year);
+        c.set(Calendar.MONTH,month);
+        c.set(Calendar.DAY_OF_MONTH,day);
+        String currentDate = DateFormat.getDateInstance().format(c.getTime());
+        date.setText(currentDate);
+    }
+
+    @Override
+    public void onTimeSet(TimePicker timePicker, int hour, int minute) {
+        time .setText(hour+":"+minute);
+        c.set(Calendar.HOUR,hour);
+        c.set(Calendar.MINUTE,minute);
+    }
 
     public void insertEvent(View v)
     {
@@ -65,6 +101,11 @@ public class AddEvent extends AppCompatActivity {
             date.setError("Campo requerido");
             _continue=false;
         }
+        if(time.getText().toString().trim().isEmpty())
+        {
+            time.setError("Campo requerido");
+            _continue=false;
+        }
 
         if(_continue)
         {
@@ -84,7 +125,7 @@ public class AddEvent extends AppCompatActivity {
             String date = (String) fields[2];
             String description = (String) fields[3];
 
-            status = Posts.addEvent(new Event(Calendar.getInstance().getTime(),location,title,description,""));
+            status = Posts.addEvent(new Event(c.getTime(),location,title,description,""));
             return status;
         }
         protected void onPostExecute(musicbeans.dataaccess.Status status)
@@ -100,6 +141,7 @@ public class AddEvent extends AppCompatActivity {
                 location.setText("");
                 description.setText("");
                 title.setText("");
+                time.setText("");
 
             }
             if(status== musicbeans.dataaccess.Status.NETWORK_ERROR)

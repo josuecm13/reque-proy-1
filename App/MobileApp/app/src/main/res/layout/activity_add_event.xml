@@ -37,7 +37,24 @@
             android:background="@drawable/border"
             android:hint="Fecha y hora"
             android:gravity="left"
-            android:inputType="datetime" />
+            android:inputType="text"
+            android:editable="false"
+            android:drawableRight="@drawable/ic_date_range_black_24dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="OpenDate"/>
+        <EditText
+            android:id="@+id/txtTime"
+            style="@style/editText_style"
+            android:background="@drawable/border"
+            android:hint="Hora"
+            android:gravity="left"
+            android:inputType="text"
+            android:editable="false"
+            android:drawableRight="@drawable/ic_access_time_black_24dp_white"
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="OpenTime"/>
 
         <EditText
             android:id="@+id/txtDescription"
@@ -49,9 +66,10 @@
             android:gravity="top|left"
             android:overScrollMode="always"
             android:scrollbars="vertical"
-            android:lines="10"
+            android:lines="7"
             android:scrollHorizontally="false"
-            android:textAppearance="?android:attr/textAppearanceMedium"/>
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            />
         <Button
             android:id="@+id/btnLogin"
             style="@style/button_style"

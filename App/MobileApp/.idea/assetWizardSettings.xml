@@ -18,7 +18,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/action/ic_account_circle_black_24dp.xml" />
+                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/device/ic_access_time_black_24dp.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -28,12 +28,10 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="color" value="fefeff" />
-                            <entry key="height" value="80" />
-                            <entry key="outputName" value="ic_account_circle_white_80dp" />
+                            <entry key="color" value="fefefd" />
+                            <entry key="outputName" value="ic_access_time_black_24dp_white" />
                             <entry key="overrideSize" value="true" />
                             <entry key="sourceFile" value="C:\Users\jd_cm" />
-                            <entry key="width" value="80" />
                           </map>
                         </option>
                       </PersistentState>

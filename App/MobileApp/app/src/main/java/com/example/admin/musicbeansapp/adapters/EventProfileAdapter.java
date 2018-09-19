@@ -44,8 +44,8 @@ public class EventProfileAdapter extends RecyclerView.Adapter<EventProfileAdapte
     public void onBindViewHolder(final MyViewHolder holder, final int postition)
     {
         holder.title.setText(mData.get(postition).getTitle());
-        holder.date.setText("Fecha: "+mData.get(postition).getDate().toString());
-        holder.time.setText("Hora: "+mData.get(postition).getTitle());
+        holder.date.setText("Fecha: "+mData.get(postition).getDateDay());
+        holder.time.setText("Hora: "+mData.get(postition).getDateTime());
         holder.location.setText("Lugar: "+mData.get(postition).getLocation());
         if(Sesion.getInstance().getAccounType()== Status.CLIENT)
         {
