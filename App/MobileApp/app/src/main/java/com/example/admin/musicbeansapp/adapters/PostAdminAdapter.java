@@ -1,6 +1,8 @@
 package com.example.admin.musicbeansapp.adapters;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.admin.musicbeansapp.R;
+import com.example.admin.musicbeansapp.SelectedNewsActivity;
 
 import java.util.List;
 
@@ -58,6 +61,17 @@ public class PostAdminAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         return holder;
     }
 
+    private void openNews(View view, NewsItem newsItem){
+        Bundle bundle = new Bundle();
+        bundle.putString("Title",newsItem.getTitle());
+        bundle.putString("Body",newsItem.getBody());
+        bundle.putString("Author",newsItem.getAuthor());
+        bundle.putLong("Date",newsItem.getDate().getTime());
+        Intent intent = new Intent(view.getContext(),
+                SelectedNewsActivity.class).putExtras(bundle);
+        view.getContext().startActivity(intent);
+    }
+
     @Override
     public int getItemViewType(int position){
         return posts.get(position) instanceof NewsItem? R.layout.layout_postitem_new : R.layout.layout_postitem_event;
@@ -72,7 +86,8 @@ public class PostAdminAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             ((PostNewHolder)holder).body.setText(newsItem.getBody());
             String date = newsItem.getDate() != null ? newsItem.getDate().toString(): "12/21/2121";
             ((PostNewHolder)holder).date.setText(date);
-            ((PostNewHolder)holder).thumbnail.setImageResource(R.drawable.logo);
+            //((PostNewHolder)holder).thumbnail.setImageResource(R.drawable.logo);
+            ((PostNewHolder)holder).setNewsListener(newsItem);
         }else{
             final Event event = (Event) posts.get(position);
             ((PostEventHolder)holder).event.setText(event.getTitle());
@@ -99,6 +114,16 @@ public class PostAdminAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             title = itemView.findViewById(R.id.post_newsitem_title);
             body = itemView.findViewById(R.id.post_newsitem_body);
             date = itemView.findViewById(R.id.post_newsitem_time);
+        }
+
+
+        public void setNewsListener(final NewsItem news){
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    openNews(view,news);
+                }
+            });
         }
     }
 

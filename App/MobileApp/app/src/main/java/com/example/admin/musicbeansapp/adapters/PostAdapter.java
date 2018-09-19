@@ -82,7 +82,7 @@ public class PostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
             ((PostNewHolder)holder).body.setText(newsItem.getBody());
             String date = newsItem.getDate() != null ? newsItem.getDate().toString(): "12/21/2121";
             ((PostNewHolder)holder).date.setText(date);
-            ((PostNewHolder)holder).thumbnail.setImageResource(R.drawable.logo);
+            //((PostNewHolder)holder).thumbnail.setImageResource(R.drawable.logo);
             ((PostNewHolder)holder).setNewsListener(newsItem);
         }else{
             final Event event = (Event) posts.get(position);

@@ -46,6 +46,7 @@ public class Posts {
                     result.add(new Event(rs.getDate("date"),rs.getString("location"),rs.getString("Title"),rs.getString("description"),rs.getString("band")));
                 }
                 Collections.sort(result);
+                Collections.reverse(result);
             } catch (SQLException e)
             {
                 System.err.println(e.toString());
@@ -72,6 +73,7 @@ public class Posts {
                     result.add(new Event(rs.getDate("date"),rs.getString("location"),rs.getString("Title"),rs.getString("description"),rs.getString("band")));
                 }
                 Collections.sort(result);
+                Collections.reverse(result);
             }  catch (Exception e)
             {
                 System.err.println(e.toString());
@@ -99,6 +101,7 @@ public class Posts {
                     result.add(new NewsItem(rs.getString("title"), rs.getString("body"), null, rs.getString("author"), rs.getDate("date")));
                 }
                 Collections.sort(result);
+                Collections.reverse(result);
             }  catch (Exception e)
             {
                 System.err.println(e.toString());

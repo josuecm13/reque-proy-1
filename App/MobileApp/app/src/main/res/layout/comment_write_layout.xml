@@ -9,9 +9,9 @@
 
     <ImageView
         android:id="@+id/user_photo"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:src="@mipmap/ic_launcher" />
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/ic_account_circle_white_80dp" />
 
     <EditText
         android:id="@+id/text_section"

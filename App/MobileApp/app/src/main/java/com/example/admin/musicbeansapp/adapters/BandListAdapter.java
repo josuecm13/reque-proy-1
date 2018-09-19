@@ -51,11 +51,10 @@ public class BandListAdapter extends RecyclerView.Adapter<BandListAdapter.BandHo
                 holder.fav.setImageResource(R.drawable.ic_favorite_black_24dp);
             else
                 holder.fav.setImageResource(R.drawable.ic_favorite_border_black_24dp_);
-            holder.image.setOnLongClickListener(new View.OnLongClickListener() {
+            holder.image.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public boolean onLongClick(View view) {
+                public void onClick(View view) {
                     viewProfile(holder,position);
-                    return true;
                 }
             });
         }
