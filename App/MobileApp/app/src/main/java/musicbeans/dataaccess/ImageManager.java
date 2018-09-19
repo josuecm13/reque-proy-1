@@ -45,7 +45,6 @@ public class ImageManager extends AsyncTask<Void,Void,Void>
                     public void onSuccess(byte[] bytes) {
                         Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                         _img.setImageBitmap(Bitmap.createBitmap(bmp));
-
                     }
                 });
             }catch (Exception e) {
