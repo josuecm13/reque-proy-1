@@ -1,4 +1,4 @@
-package com.example.admin.musicbeansapp.ui.posts;
+package com.example.admin.musicbeansapp.ui.bands;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -17,24 +17,32 @@ import com.example.admin.musicbeansapp.R;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 
-import musicbeans.dataaccess.Account;
-import musicbeans.dataaccess.Posts;
+import musicbeans.dataaccess.Product;
 import musicbeans.dataaccess.Status;
-import musicbeans.entities.Client;
-import musicbeans.entities.NewsItem;
 
 
-public class NewsAdd extends AppCompatActivity {
+public class EditProduct extends AppCompatActivity {
 
-    EditText title;
-    EditText body;
+    EditText name;
+    EditText type;
+    EditText price;
+    EditText stock;
+    int ID;
     Uri path=null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_news_add);
-        title = (EditText)findViewById(R.id.txtTitle);
-        body = (EditText)findViewById(R.id.txtBody);
+        setContentView(R.layout.activity_add_product);
+        name = (EditText)findViewById(R.id.txtName);
+        type = (EditText)findViewById(R.id.txtType);
+        price = (EditText)findViewById(R.id.txtPrice);
+        stock = (EditText)findViewById(R.id.txtStock);
+
+        name.setText(getIntent().getStringExtra("name"));
+        type.setText(getIntent().getStringExtra("type"));
+        price.setText(getIntent().getStringExtra("price"));
+        stock.setText(getIntent().getStringExtra("stock"));
+        ID = Integer.parseInt(getIntent().getStringExtra("ID"));
     }
     public void uploadPhoto(View v)
     {
@@ -65,28 +73,43 @@ public class NewsAdd extends AppCompatActivity {
                 break;
         }
     }
-    public void insertNews(View v)
+    public void insertUser(View v)
     {
         boolean _continue=true;
-        if(title.getText().toString().trim().isEmpty())
+        if(name.getText().toString().trim().isEmpty())
         {
-            title.setError("Campo requerido");
+            name.setError("Campo requerido");
             _continue=false;
         }
-        if(body.getText().toString().trim().isEmpty())
+        if(type.getText().toString().trim().isEmpty())
         {
-            body.setError("Campo requerido");
+            type.setError("Campo requerido");
+            _continue=false;
+        }
+        if(stock.getText().toString().trim().isEmpty())
+        {
+            stock.setError("Campo requerido");
+            _continue=false;
+        }
+        if(price.getText().toString().trim().isEmpty())
+        {
+            price.setError("Campo requerido");
             _continue=false;
         }
 
         if(_continue)
         {
-           RegisterUser registerUser = new RegisterUser();
-           registerUser.execute(title.getText().toString(),body.getText().toString());
+            double _price = Double.parseDouble(price.getText().toString());
+            int _stock = Integer.parseInt(stock.getText().toString());
+            String _name = name.getText().toString();
+            String _type = type.getText().toString();
+            RegisterUser registerUser = new RegisterUser();
+            registerUser.execute(_name,_type,_price,_stock);
         }
     }
     private byte[] getBytes()
     {
+
         if(path==null)return null;
         try
         {
@@ -113,33 +136,34 @@ public class NewsAdd extends AppCompatActivity {
         protected musicbeans.dataaccess.Status doInBackground(Object... fields)
         {
             musicbeans.dataaccess.Status status =null;
-            String title = (String) fields[0];
-            String body = (String )fields[1];
+            String name = (String) fields[0];
+            String type = (String )fields[1];
+            double price = (Double) fields[2];
+            int stock = (Integer) fields[3];
             byte[] photo = getBytes();
-            Account account = new Account();
-            status = Posts.publishNews(path, new NewsItem(title,body,photo));
+
+            status = Product.addProduct(path,new musicbeans.entities.Product(name,type,price,stock,photo));
             return status;
         }
         protected void onPostExecute(musicbeans.dataaccess.Status status)
         {
+            if(status== musicbeans.dataaccess.Status.REPEATED_USER)
+            {
+                Toast.makeText(getApplicationContext(),"Ese usuario ya existe", Toast.LENGTH_SHORT).show();
+            }
             if(status== musicbeans.dataaccess.Status.REGISTERED)
             {
-                Toast.makeText(getApplicationContext(),"Noticias publicada", Toast.LENGTH_SHORT).show();
-                title.setText("");
-                body.setText("");
+                Toast.makeText(getApplicationContext(),"Registro correcto", Toast.LENGTH_SHORT).show();
                 path=null;
+                name.setText("");
+                type.setText("");
+                price.setText("");
+                stock.setText("");
 
             }
             if(status== musicbeans.dataaccess.Status.NETWORK_ERROR)
             {
                 Toast.makeText(getApplicationContext(),"Error de conexión", Toast.LENGTH_SHORT).show();
-            }
-            if(status== musicbeans.dataaccess.Status.IMG_FAILED)
-            {
-                Toast.makeText(getApplicationContext(),"Se guardó la noticia pero no su imagen", Toast.LENGTH_SHORT).show();
-                title.setText("");
-                body.setText("");
-                path=null;
             }
         }
     }

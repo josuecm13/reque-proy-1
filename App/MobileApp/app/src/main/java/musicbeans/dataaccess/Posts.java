@@ -1,5 +1,7 @@
 package musicbeans.dataaccess;
 
+import android.net.Uri;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -8,6 +10,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 import musicbeans.entities.Band;
@@ -109,11 +112,12 @@ public class Posts {
         }
         return result;
     }
-    public static Status publishNews(NewsItem news)
+    public static Status publishNews(Uri uri, NewsItem news)
     {
         Connection connection =  Connector.getConnection2();
         PreparedStatement pst=null;
         ResultSet rs = null;
+        boolean inserted = false;
         if(connection != null)
         {
             try
@@ -123,9 +127,21 @@ public class Posts {
                 pst.setString(2,news.getTitle());
                 pst.setString(3,news.getBody());
                 pst.executeUpdate();
+                inserted=true;
+                pst = connection.prepareStatement("select top 1 date,author from News where author=? order by date desc");
+                pst.setString(1,Sesion.getInstance().getUsername());
+                rs=pst.executeQuery();
+                if(rs.next())
+                {
+                    java.sql.Date date = rs.getDate("date");
+                    String author = rs.getString("author");
+                    NewsItem _news = new NewsItem(date,author);
+                    return ImageManager.uploadImage(uri,"news/"+_news.getImageID());
+                }
                 return Status.REGISTERED;
             } catch (Exception e)
             {
+                if(inserted)return Status.IMG_FAILED;
                 System.err.println(e.toString());
             }
             finally
@@ -177,6 +193,43 @@ public class Posts {
         }
         return Status.NETWORK_ERROR;
 
+    }
+
+    public static List<musicbeans.entities.Event> getEvents ()
+    {
+        Connection connection =  Connector.getConnection2();
+        PreparedStatement pst=null;
+        ResultSet rs = null;
+        List<musicbeans.entities.Event> list = new ArrayList<>();
+        if(connection != null)
+        {
+            try
+            {
+                pst = connection.prepareStatement("select * from Event where band = ?");
+                pst.setString(1,Sesion.getInstance().getUsername());
+                rs=pst.executeQuery();
+                while(rs.next())
+                {
+                    musicbeans.entities.Event event = new musicbeans.entities.Event(rs.getDate("date"),
+                            rs.getString("location"),
+                            rs.getString("Title"),
+                            rs.getString("description"),
+                            rs.getString("band"));
+                    list.add(event);
+                }
+
+            } catch (Exception e)
+            {
+                System.err.println(e.toString());
+            }
+            finally
+            {
+                if (rs != null) try { rs.close(); } catch(Exception e) {}
+                if (pst != null) try { pst.close(); } catch(Exception e) {}
+                if (connection != null) try { connection.close(); } catch(Exception e) {}
+            }
+        }
+        return list;
     }
 
 }

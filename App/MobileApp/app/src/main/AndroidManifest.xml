@@ -36,8 +36,11 @@
         <activity android:name=".ui.posts.fragments.BandListAdminFragment" />
         <activity android:name=".ui.bands.InsertBand" />
         <activity android:name=".ui.posts.NewsAdd" />
-        <activity android:name=".ui.bands.BandProfile" />
+        <activity android:name=".ui.bands.BandProfile" android:screenOrientation="portrait"/>
         <activity android:name=".SelectedNewsActivity"/>
+        <activity android:name=".ui.bands.AddProduct"/>
+        <activity android:name=".ui.bands.fragments.AddEvent"/>
+        <activity android:name=".ui.bands.EditProduct"/>
     </application>
 
 </manifest>

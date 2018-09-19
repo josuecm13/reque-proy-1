@@ -1,6 +1,8 @@
 package musicbeans.entities;
 
 import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.util.GregorianCalendar;
 
 public class NewsItem extends Posts {
     
@@ -21,6 +23,11 @@ public class NewsItem extends Posts {
         this.title=title;
         this.body=body;
         this.img=img;
+    }
+    public NewsItem(Date date,String author)
+    {
+        this.date=date;
+        this.author=author;
     }
     public String getTitle() {
         return title;
@@ -56,5 +63,13 @@ public class NewsItem extends Posts {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public String getImageID()
+    {
+        java.util.Date date = getDate();
+        SimpleDateFormat mask = new SimpleDateFormat("dd_MM_yyyy_hh_mm_ss");
+        String _date = mask.format(date);
+        return _date + "_author_"+getAuthor();
     }
 }
