@@ -49,6 +49,7 @@ public class EventProfileAdapter extends RecyclerView.Adapter<EventProfileAdapte
         holder.location.setText("Lugar: "+mData.get(postition).getLocation());
         if(Sesion.getInstance().getAccounType()== Status.CLIENT)
         {
+            holder.delete.setVisibility(View.INVISIBLE);
             holder.cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

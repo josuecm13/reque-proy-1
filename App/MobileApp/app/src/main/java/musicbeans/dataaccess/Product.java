@@ -68,9 +68,8 @@ public class Product
             try
             {
                 pst = connection.prepareStatement("update Product set name=?," +
-                                                    "type=?"+
-                                                    "stock=?"+
-                                                    "price=?"+
+                                                    "type=?,"+
+                                                    "stock=?,"+
                                                     "price=? WHERE id=?");
                 pst.setString(1,product.getName());
                 pst.setString(2,product.getType());

@@ -122,6 +122,15 @@ public class BandProfileClient extends AppCompatActivity implements EventProfile
                     _rating.setText("5");
                 else
                     _rating.setText(rat+"");
+
+                int client = musicbeans.dataaccess.Band.getBandRatingClient(Sesion.getInstance().getBand());
+
+                if(client!=-1)
+                {
+                    RatingBar ratingBar = findViewById(R.id.ratingStars);
+
+                    ratingBar.setRating(client);
+                }
             }
             return null;
         }

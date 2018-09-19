@@ -1,6 +1,8 @@
 package com.example.admin.musicbeansapp.adapters;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -12,8 +14,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.admin.musicbeansapp.R;
+import com.example.admin.musicbeansapp.SelectedNewsActivity;
 import com.example.admin.musicbeansapp.ui.bands.DialogEvent;
 import com.example.admin.musicbeansapp.ui.bands.DialogProduct;
+import com.example.admin.musicbeansapp.ui.bands.EditProduct;
 
 import java.util.List;
 
@@ -70,6 +74,13 @@ public class ProductProfileAdapter extends RecyclerView.Adapter<ProductProfileAd
                     return true;
                 }
             });
+            holder.edit.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    EditProduct(holder,postition);
+                    return true;
+                }
+            });
         }
         else
         {
@@ -101,6 +112,18 @@ public class ProductProfileAdapter extends RecyclerView.Adapter<ProductProfileAd
                 Toast.makeText(v.getContext(), "No se puedo eliminar", Toast.LENGTH_SHORT).show();
             }
         }
+    }
+    public void EditProduct(MyViewHolder holder,int position)
+    {
+        Bundle bundle = new Bundle();
+        bundle.putString("Name",mData.get(position).getName());
+        bundle.putString("Type",mData.get(position).getType());
+        bundle.putDouble("Price",mData.get(position).getPrice());
+        bundle.putInt("Stock",mData.get(position).getStock());
+        bundle.putInt("ID",mData.get(position).getID());
+        Intent intent = new Intent(holder.itemView.getContext(),
+                EditProduct.class).putExtras(bundle);
+        holder.itemView.getContext().startActivity(intent);
     }
     @Override
     public int getItemCount(){

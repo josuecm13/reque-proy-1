@@ -17,6 +17,7 @@ import com.example.admin.musicbeansapp.R;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 
+import musicbeans.dataaccess.ImageManager;
 import musicbeans.dataaccess.Product;
 import musicbeans.dataaccess.Status;
 
@@ -32,17 +33,21 @@ public class EditProduct extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_product);
+        setContentView(R.layout.activity_edit_product);
         name = (EditText)findViewById(R.id.txtName);
         type = (EditText)findViewById(R.id.txtType);
         price = (EditText)findViewById(R.id.txtPrice);
         stock = (EditText)findViewById(R.id.txtStock);
 
-        name.setText(getIntent().getStringExtra("name"));
-        type.setText(getIntent().getStringExtra("type"));
-        price.setText(getIntent().getStringExtra("price"));
-        stock.setText(getIntent().getStringExtra("stock"));
-        ID = Integer.parseInt(getIntent().getStringExtra("ID"));
+        name.setText(getIntent().getExtras().getString("Name"));
+        type.setText(getIntent().getExtras().getString("Type"));
+        price.setText(getIntent().getExtras().getDouble("Price")+"");
+        stock.setText(getIntent().getExtras().getInt("Stock")+"");
+        ID = getIntent().getExtras().getInt("ID");
+
+        ImageView photo = findViewById(R.id.imgPhoto);
+        ImageManager manager = new ImageManager("img/"+ID,photo);
+        manager.execute();
     }
     public void uploadPhoto(View v)
     {
@@ -140,9 +145,9 @@ public class EditProduct extends AppCompatActivity {
             String type = (String )fields[1];
             double price = (Double) fields[2];
             int stock = (Integer) fields[3];
-            byte[] photo = getBytes();
+           // byte[] photo = getBytes();
 
-            status = Product.addProduct(path,new musicbeans.entities.Product(name,type,price,stock,photo));
+            status = Product.editProduct(new musicbeans.entities.Product(ID,"",name,type,price,stock,null));
             return status;
         }
         protected void onPostExecute(musicbeans.dataaccess.Status status)

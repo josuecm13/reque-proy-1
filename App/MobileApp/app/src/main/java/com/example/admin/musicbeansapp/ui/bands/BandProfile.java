@@ -6,7 +6,9 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.example.admin.musicbeansapp.R;
@@ -30,10 +32,10 @@ public class BandProfile extends AppCompatActivity implements EventProfile.OnFra
         tabLayout.addTab(tabLayout.newTab().setText("Tienda"));
         tabLayout.addTab(tabLayout.newTab().setText("Descripción"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-        String url = "img/banda1.PNG";
+
         ImageView view = (ImageView)findViewById(R.id.profile);
-        ImageManager img = new ImageManager(url,view);
-        img.execute();
+        RatingBar ratingBar = findViewById(R.id.ratingStars);
+        ratingBar.setVisibility(View.INVISIBLE);
         LoadInfo info = new LoadInfo();
         info.execute();
         final ViewPager viewPager = (ViewPager)findViewById(R.id.pager);
@@ -79,6 +81,11 @@ public class BandProfile extends AppCompatActivity implements EventProfile.OnFra
             if(_band!=null) {
                 _name.setText(_band.getUsername());
                 _rating.setText(_band.getRate() + "");
+                double rat= musicbeans.dataaccess.Band.getBandRating(Sesion.getInstance().getBand());
+                if(rat==-1)
+                    _rating.setText("5");
+                else
+                    _rating.setText(rat+"");
             }
             return null;
         }
