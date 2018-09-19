@@ -70,7 +70,9 @@ public class Posts {
                 pst = connection.createStatement();
                 rs = pst.executeQuery("select * from News order by date desc");
                 while (rs.next()) {
-                    result.add(new NewsItem(rs.getString("title"), rs.getString("body"), null, rs.getString("author"), rs.getDate("date")));
+                    Timestamp timestamp = rs.getTimestamp("date");
+                    java.sql.Date d = new java.sql.Date(timestamp.getTime());
+                    result.add(new NewsItem(rs.getString("title"), rs.getString("body"), null, rs.getString("author"), d));
                 }
                 pst = connection.createStatement();
                 rs = pst.executeQuery("select * from Event order by date desc");
@@ -103,7 +105,9 @@ public class Posts {
                 pst.setString(1, Sesion.getInstance().getUsername());
                 rs = pst.executeQuery();
                 while (rs.next()) {
-                    result.add(new NewsItem(rs.getString("title"), rs.getString("body"), null, rs.getString("author"), rs.getDate("date")));
+                    Timestamp timestamp = rs.getTimestamp("date");
+                    java.sql.Date d = new java.sql.Date(timestamp.getTime());
+                    result.add(new NewsItem(rs.getString("title"), rs.getString("body"), null, rs.getString("author"), d));
                 }
                 Collections.sort(result);
                 Collections.reverse(result);
@@ -141,9 +145,10 @@ public class Posts {
                 rs=pst.executeQuery();
                 if(rs.next())
                 {
-                    java.sql.Date date = rs.getDate("date");
+                    Timestamp timestamp = rs.getTimestamp("date");
+                    java.sql.Date d = new java.sql.Date(timestamp.getTime());
                     String author = rs.getString("author");
-                    NewsItem _news = new NewsItem(date,author);
+                    NewsItem _news = new NewsItem(d,author);
                     return ImageManager.uploadImage(uri,"news/"+_news.getImageID());
                 }
                 return Status.REGISTERED;
