@@ -24,6 +24,7 @@ import java.util.List;
 import musicbeans.dataaccess.Posts;
 import musicbeans.entities.Event;
 import musicbeans.entities.Sesion;
+import musicbeans.entities.ViewBag;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -43,7 +44,7 @@ public class EventProfile extends Fragment {
     private String mParam1;
     private String mParam2;
     boolean client=false;
-
+    EventProfileAdapter adapter=null;
     private OnFragmentInteractionListener mListener;
 
     public EventProfile() {
@@ -100,6 +101,7 @@ public class EventProfile extends Fragment {
 
         RecyclerView myvr = (RecyclerView)view.findViewById(R.id.event_profile_recycler);
         EventProfileAdapter adapter = new EventProfileAdapter(getActivity(),list);
+        this.adapter=adapter;
         myvr.setLayoutManager(new GridLayoutManager(getActivity(),3));
         myvr.setAdapter(adapter);
 
@@ -122,6 +124,7 @@ public class EventProfile extends Fragment {
         try{
             Intent intent = new Intent(getActivity(),
                     AddEvent.class);
+            ViewBag.put("event",adapter);
             startActivity(intent);
         }catch (Exception e)
         {

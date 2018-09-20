@@ -157,7 +157,7 @@ public class InsertBand extends AppCompatActivity {
             byte[] photo = getBytes(path);
             byte[] banner = getBytes(path_banner);
             Account account = new Account();
-            status = account.registerBand(new Band(user, password, photo, "", description, (byte) 5, banner));
+            status = account.registerBand(path,new Band(user, password, photo, "", description, (byte) 5, banner));
             return status;
         }
         protected void onPostExecute(musicbeans.dataaccess.Status status)

@@ -10,6 +10,7 @@ import java.util.List;
 
 import musicbeans.entities.Event;
 import musicbeans.entities.Sesion;
+import musicbeans.entities.ViewBag;
 
 public class Product
 {
@@ -39,6 +40,7 @@ public class Product
                 if(rs.next())
                 {
                     int id = rs.getInt("maxi");
+                    ViewBag.put("product_id",id);
                     return ImageManager.uploadImage(uri,"img/"+id+"");
                 }
 
@@ -182,6 +184,7 @@ public class Product
                 boolean exits = rs.next();
                 if(exits)
                 {
+
                     int msg = rs.getInt("msg");
                     if(msg==0)return  Status.OK;
                     else return  Status.FAILED;

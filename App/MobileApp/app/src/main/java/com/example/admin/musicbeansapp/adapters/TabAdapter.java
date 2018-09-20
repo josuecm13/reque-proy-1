@@ -12,6 +12,7 @@ public class TabAdapter extends FragmentStatePagerAdapter {
 
     int tabNumber;
     boolean client=false;
+    DescriptionProfile tab3;
     public TabAdapter(FragmentManager fm,int tabNumber)
     {
         super(fm);
@@ -37,6 +38,7 @@ public class TabAdapter extends FragmentStatePagerAdapter {
                return  tab2;
            case 2:
                DescriptionProfile tab3 = new DescriptionProfile();
+               this.tab3=tab3;
                return  tab3;
            default:
                return null;

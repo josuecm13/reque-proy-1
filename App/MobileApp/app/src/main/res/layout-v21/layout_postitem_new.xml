@@ -69,9 +69,17 @@
                     android:text="lkdsljfglfdjglfjglfjglkdfjglfjgljflgjlfkgjlfkjglfkjglkfjgjfkgkjfm..."
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
+
+
             </RelativeLayout>
 
-
+            <ImageView
+                android:id="@+id/deleteNews"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:src="@drawable/ic_delete_black_24dp"
+                tools:ignore="RtlHardcoded" />
         </LinearLayout>
 
 

@@ -3,6 +3,7 @@ package com.example.admin.musicbeansapp.ui.bands;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.design.widget.TabLayout;
+import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,9 +21,10 @@ import com.example.admin.musicbeansapp.ui.bands.fragments.ProductProfile;
 import musicbeans.dataaccess.ImageManager;
 import musicbeans.entities.Band;
 import musicbeans.entities.Sesion;
+import musicbeans.entities.ViewBag;
 
 public class BandProfile extends AppCompatActivity implements EventProfile.OnFragmentInteractionListener,DescriptionProfile.OnFragmentInteractionListener,ProductProfile.OnFragmentInteractionListener {
-
+    private  String text;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,8 +38,8 @@ public class BandProfile extends AppCompatActivity implements EventProfile.OnFra
         ImageView view = (ImageView)findViewById(R.id.profile);
         RatingBar ratingBar = findViewById(R.id.ratingStars);
         ratingBar.setVisibility(View.INVISIBLE);
-        LoadInfo info = new LoadInfo();
-        info.execute();
+
+
         final ViewPager viewPager = (ViewPager)findViewById(R.id.pager);
         final TabAdapter adapter = new TabAdapter(getSupportFragmentManager(),tabLayout.getTabCount());
         viewPager.setAdapter(adapter);
@@ -46,11 +48,11 @@ public class BandProfile extends AppCompatActivity implements EventProfile.OnFra
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
+
             }
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-
             }
 
             @Override
@@ -58,6 +60,8 @@ public class BandProfile extends AppCompatActivity implements EventProfile.OnFra
 
             }
         });
+        LoadInfo info = new LoadInfo();
+        info.execute();
     }
     @Override
     public void onFragmentInteraction(Uri uri)
@@ -73,15 +77,19 @@ public class BandProfile extends AppCompatActivity implements EventProfile.OnFra
 
         @Override
         protected Void doInBackground(Void... voids) {
-            String band = Sesion.getInstance().getBand();
+            String band = Sesion.getInstance().getUsername();
             Band _band = musicbeans.dataaccess.Band.getBand(band);
 
             TextView _name = findViewById(R.id.bandName);
             TextView _rating = findViewById(R.id.rating);
             if(_band!=null) {
+                final ViewPager viewPager = (ViewPager)findViewById(R.id.pager);
+
                 _name.setText(_band.getUsername());
                 _rating.setText(_band.getRate() + "");
-                double rat= musicbeans.dataaccess.Band.getBandRating(Sesion.getInstance().getBand());
+                ViewBag.put("text",_band.getDescription());
+
+                double rat= musicbeans.dataaccess.Band.getBandRating(Sesion.getInstance().getUsername());
                 if(rat==-1)
                     _rating.setText("5");
                 else

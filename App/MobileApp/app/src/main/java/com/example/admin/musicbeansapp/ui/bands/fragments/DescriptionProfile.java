@@ -7,8 +7,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.admin.musicbeansapp.R;
+
+import musicbeans.entities.ViewBag;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -27,7 +30,8 @@ public class DescriptionProfile extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
+    private  View view;
+    private String text="";
     private OnFragmentInteractionListener mListener;
 
     public DescriptionProfile() {
@@ -64,8 +68,13 @@ public class DescriptionProfile extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        view=inflater.inflate(R.layout.fragment_description_profile, container, false);
+        if(text.isEmpty()) {
+            text=(String) ViewBag.get("text");
+            setDescription(text);
+        }
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_description_profile, container, false);
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -85,7 +94,11 @@ public class DescriptionProfile extends Fragment {
                     + " must implement OnFragmentInteractionListener");
         }
     }
-
+    public  void setDescription(String text)
+    {
+        TextView v = view.findViewById(R.id.txtDescriptionProfile);
+        v.setText(text);
+    }
     @Override
     public void onDetach() {
         super.onDetach();

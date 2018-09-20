@@ -319,4 +319,40 @@ public class Posts {
         }
         return Status.FAILED;
     }
+
+    public static Status deleteNews (musicbeans.entities.NewsItem news)
+    {
+        Connection connection = Connector.getConnection2();
+        PreparedStatement pst=null;
+        ResultSet rs=null;
+        if(connection!=null)
+        {
+            try
+            {
+                pst = connection.prepareStatement("{call deleteNews @author=?,@date=?}");
+                pst.setString(1,news.getAuthor());
+                pst.setTimestamp(2,new Timestamp(news.getDate().getTime()));
+                rs = pst.executeQuery();
+                boolean exits = rs.next();
+                if(exits)
+                {
+                    int msg = rs.getInt("msg");
+                    if(msg==0)return  Status.OK;
+                    else return  Status.FAILED;
+                }
+                else return Status.NETWORK_ERROR;
+            }
+            catch (Exception e)
+            {
+                System.err.println(e.toString());
+            }
+            finally
+            {
+                if (pst != null) try { pst.close(); } catch(Exception ignored) {}
+                if (rs != null) try { rs.close(); } catch(Exception ignored) {}
+                if (connection != null) try { connection.close(); } catch(Exception ignored) {}
+            }
+        }
+        return Status.NETWORK_ERROR;
+    }
 }

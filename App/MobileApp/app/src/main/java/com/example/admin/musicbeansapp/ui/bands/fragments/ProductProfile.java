@@ -27,6 +27,7 @@ import musicbeans.dataaccess.ImageManager;
 import musicbeans.entities.Event;
 import musicbeans.entities.Product;
 import musicbeans.entities.Sesion;
+import musicbeans.entities.ViewBag;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -47,6 +48,8 @@ public class ProductProfile extends Fragment {
     private String mParam2;
     boolean client=false;
     private OnFragmentInteractionListener mListener;
+
+    private  ProductProfileAdapter _adapter;
 
     public ProductProfile() {
         // Required empty public constructor
@@ -102,7 +105,7 @@ public class ProductProfile extends Fragment {
         //ImageManager manager = new ImageManager(uri,img);
         RecyclerView myvr = (RecyclerView)view.findViewById(R.id.product_profile_recycler);
         ProductProfileAdapter adapter = new ProductProfileAdapter(getActivity(),list);
-
+        _adapter=adapter;
 
         myvr.setLayoutManager(new GridLayoutManager(getContext(),3));
         myvr.setAdapter(adapter);
@@ -126,6 +129,7 @@ public class ProductProfile extends Fragment {
 
         Intent intent = new Intent(getActivity(),
                 AddProduct.class);
+        ViewBag.put("product",_adapter);
         startActivity(intent);
     }
 

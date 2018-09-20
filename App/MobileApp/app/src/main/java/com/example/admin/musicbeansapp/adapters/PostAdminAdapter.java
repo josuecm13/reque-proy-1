@@ -10,12 +10,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.admin.musicbeansapp.R;
 import com.example.admin.musicbeansapp.SelectedNewsActivity;
 
 import java.util.List;
 
+import musicbeans.dataaccess.Status;
 import musicbeans.entities.Event;
 import musicbeans.entities.NewsItem;
 import musicbeans.entities.Posts;
@@ -79,13 +81,20 @@ public class PostAdminAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     @SuppressLint("SetTextI18n")
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, final int position) {
         if(holder instanceof PostNewHolder){
             final NewsItem newsItem = (NewsItem) posts.get(position);
             ((PostNewHolder)holder).title.setText(newsItem.getTitle());
             ((PostNewHolder)holder).body.setText(newsItem.getBody());
             String date = newsItem.getDate() != null ? newsItem.getDate().toString(): "12/21/2121";
             ((PostNewHolder)holder).date.setText(date);
+            ((PostNewHolder)holder).delete.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    delete((PostNewHolder) holder,position);
+                    return true;
+                }
+            });
             //((PostNewHolder)holder).thumbnail.setImageResource(R.drawable.logo);
             ((PostNewHolder)holder).setNewsListener(newsItem);
         }else{
@@ -93,6 +102,22 @@ public class PostAdminAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             ((PostEventHolder)holder).event.setText(event.getTitle());
             ((PostEventHolder)holder).band.setText(event.getBanda());
             ((PostEventHolder)holder).info.setText((event.getLocation() != null? event.getLocation() : "N/D")+","+ (event.getDate() != null? event.getDate().toString() : "N/D"));
+        }
+    }
+    public void delete(PostNewHolder holder,int position)
+    {
+        Status status = musicbeans.dataaccess.Posts.deleteNews((NewsItem) posts.get(position));
+        if (holder.itemView != null) {
+            if (status == Status.NETWORK_ERROR)
+                Toast.makeText(holder.itemView.getContext(), "Error de conexión", Toast.LENGTH_SHORT).show();
+            if (status == Status.OK) {
+                Toast.makeText(holder.itemView.getContext(), "Se eliminó correctamente", Toast.LENGTH_SHORT).show();
+                posts.remove(position);
+                notifyItemRemoved(position);
+            }
+            if(status==Status.FAILED){
+                Toast.makeText(holder.itemView.getContext(), "No se puedo eliminar", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
@@ -107,13 +132,14 @@ public class PostAdminAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         public TextView title;
         public TextView body;
         public TextView date;
-
+        public ImageView delete;
         public PostNewHolder(View itemView) {
             super(itemView);
             thumbnail = itemView.findViewById(R.id.post_newsitem_thumbnail);
             title = itemView.findViewById(R.id.post_newsitem_title);
             body = itemView.findViewById(R.id.post_newsitem_body);
             date = itemView.findViewById(R.id.post_newsitem_time);
+            delete = itemView.findViewById(R.id.deleteNews);
         }
 
 
@@ -126,6 +152,8 @@ public class PostAdminAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             });
         }
     }
+
+
 
 
     public class PostEventHolder extends RecyclerView.ViewHolder{

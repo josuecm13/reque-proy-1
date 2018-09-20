@@ -106,11 +106,12 @@ public class Account
         return Status.NETWORK_ERROR;
     }
 
-    public Status registerBand (Band band)
+    public Status registerBand (Uri uri,Band band)
     {
         Connection connection =  Connector.getConnection2();
         PreparedStatement pst=null;
         ResultSet rs = null;
+        boolean inserted =false;
         if(connection != null)
         {
             try
@@ -132,9 +133,12 @@ public class Account
                 pst.setString(2,band.getDescription());
                 pst.setByte(3,band.getRate());
                 pst.executeUpdate();
-                return Status.REGISTERED;
+
+                inserted=true;
+                return ImageManager.uploadImage(uri,"users/"+band.getUsername());
             } catch (Exception e)
             {
+                if(inserted)return Status.IMG_FAILED;
                 System.err.println(e.toString());
             }
             finally

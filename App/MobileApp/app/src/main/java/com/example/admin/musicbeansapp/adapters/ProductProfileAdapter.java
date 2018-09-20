@@ -125,6 +125,13 @@ public class ProductProfileAdapter extends RecyclerView.Adapter<ProductProfileAd
                 EditProduct.class).putExtras(bundle);
         holder.itemView.getContext().startActivity(intent);
     }
+    public void addProduct(Product p){
+        if (p != null){
+            mData.add(p);
+            notifyDataSetChanged();
+            notifyItemInserted(getItemCount());
+        }
+    }
     @Override
     public int getItemCount(){
         return mData.size();

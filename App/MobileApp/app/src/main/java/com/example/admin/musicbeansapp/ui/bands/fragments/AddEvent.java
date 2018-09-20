@@ -18,6 +18,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.admin.musicbeansapp.R;
+import com.example.admin.musicbeansapp.adapters.EventProfileAdapter;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
@@ -29,6 +30,8 @@ import musicbeans.dataaccess.Posts;
 import musicbeans.dataaccess.Status;
 import musicbeans.entities.Client;
 import musicbeans.entities.Event;
+import musicbeans.entities.Sesion;
+import musicbeans.entities.ViewBag;
 
 
 public class AddEvent extends AppCompatActivity implements DatePickerDialog.OnDateSetListener,TimePickerDialog.OnTimeSetListener {
@@ -38,6 +41,7 @@ public class AddEvent extends AppCompatActivity implements DatePickerDialog.OnDa
     EditText date;
     EditText description;
     EditText time;
+    EventProfileAdapter adapter;
     Calendar c =Calendar.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +52,7 @@ public class AddEvent extends AppCompatActivity implements DatePickerDialog.OnDa
         date = (EditText)findViewById(R.id.txtDate);
         description = (EditText)findViewById(R.id.txtDescription);
         time = (EditText)findViewById(R.id.txtTime);
+        adapter = (EventProfileAdapter) ViewBag.get("event");
     }
 
     public void OpenDate(View v)
@@ -116,6 +121,7 @@ public class AddEvent extends AppCompatActivity implements DatePickerDialog.OnDa
 
     class RegisterUser extends AsyncTask<Object,Void,Status>
     {
+        Event e;
         public RegisterUser(){}
         protected musicbeans.dataaccess.Status doInBackground(Object... fields)
         {
@@ -124,8 +130,8 @@ public class AddEvent extends AppCompatActivity implements DatePickerDialog.OnDa
             String location = (String )fields[1];
             String date = (String) fields[2];
             String description = (String) fields[3];
-
-            status = Posts.addEvent(new Event(c.getTime(),location,title,description,""));
+            e=new Event(c.getTime(),location,title,description, Sesion.getInstance().getUsername());
+            status = Posts.addEvent(e);
             return status;
         }
         protected void onPostExecute(musicbeans.dataaccess.Status status)
@@ -142,6 +148,7 @@ public class AddEvent extends AppCompatActivity implements DatePickerDialog.OnDa
                 description.setText("");
                 title.setText("");
                 time.setText("");
+                adapter.addEvent(e);
 
             }
             if(status== musicbeans.dataaccess.Status.NETWORK_ERROR)

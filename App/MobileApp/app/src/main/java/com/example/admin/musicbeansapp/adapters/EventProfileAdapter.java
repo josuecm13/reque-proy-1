@@ -20,6 +20,7 @@ import java.util.List;
 
 import musicbeans.dataaccess.Status;
 import musicbeans.entities.Event;
+import musicbeans.entities.Product;
 import musicbeans.entities.Sesion;
 
 public class EventProfileAdapter extends RecyclerView.Adapter<EventProfileAdapter.MyViewHolder>{
@@ -84,6 +85,13 @@ public class EventProfileAdapter extends RecyclerView.Adapter<EventProfileAdapte
             if(status==Status.FAILED){
                 Toast.makeText(holder.itemView.getContext(), "No se puedo eliminar", Toast.LENGTH_SHORT).show();
             }
+        }
+    }
+    public void addEvent(Event e){
+        if (e != null){
+            mData.add(e);
+            notifyDataSetChanged();
+            notifyItemInserted(getItemCount());
         }
     }
     @Override

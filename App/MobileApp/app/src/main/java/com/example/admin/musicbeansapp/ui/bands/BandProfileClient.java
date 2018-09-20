@@ -24,6 +24,7 @@ import musicbeans.dataaccess.ImageManager;
 import musicbeans.dataaccess.Status;
 import musicbeans.entities.Band;
 import musicbeans.entities.Sesion;
+import musicbeans.entities.ViewBag;
 
 public class BandProfileClient extends AppCompatActivity implements EventProfile.OnFragmentInteractionListener,DescriptionProfile.OnFragmentInteractionListener,ProductProfile.OnFragmentInteractionListener {
 
@@ -117,6 +118,7 @@ public class BandProfileClient extends AppCompatActivity implements EventProfile
             if(_band!=null) {
                 _name.setText(_band.getUsername());
                 _rating.setText(_band.getRate() + "");
+                ViewBag.put("text",_band.getDescription());
                 double rat= musicbeans.dataaccess.Band.getBandRating(Sesion.getInstance().getBand());
                 if(rat==-1)
                     _rating.setText("5");

@@ -82,6 +82,7 @@ public class PostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
             ((PostNewHolder)holder).body.setText(newsItem.getBody());
             String date = newsItem.getDate() != null ? newsItem.getDate().toString(): "12/21/2121";
             ((PostNewHolder)holder).date.setText(date);
+            ((PostNewHolder)holder).delete.setVisibility(View.INVISIBLE);
             //((PostNewHolder)holder).thumbnail.setImageResource(R.drawable.logo);
             ((PostNewHolder)holder).setNewsListener(newsItem);
         }else{
@@ -103,13 +104,14 @@ public class PostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
         public TextView title;
         public TextView body;
         public TextView date;
-
+        public  ImageView delete;
         public PostNewHolder(View itemView) {
             super(itemView);
             thumbnail = itemView.findViewById(R.id.post_newsitem_thumbnail);
             title = itemView.findViewById(R.id.post_newsitem_title);
             body = itemView.findViewById(R.id.post_newsitem_body);
             date = itemView.findViewById(R.id.post_newsitem_time);
+            delete = itemView.findViewById(R.id.deleteNews);
         }
 
 

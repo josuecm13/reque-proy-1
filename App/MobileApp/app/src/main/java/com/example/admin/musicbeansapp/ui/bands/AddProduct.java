@@ -15,6 +15,8 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.admin.musicbeansapp.R;
+import com.example.admin.musicbeansapp.adapters.ProductProfileAdapter;
+import com.example.admin.musicbeansapp.ui.bands.fragments.ProductProfile;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
@@ -23,6 +25,7 @@ import musicbeans.dataaccess.Account;
 import musicbeans.dataaccess.Product;
 import musicbeans.dataaccess.Status;
 import musicbeans.entities.Client;
+import musicbeans.entities.ViewBag;
 
 
 public class AddProduct extends AppCompatActivity {
@@ -32,6 +35,7 @@ public class AddProduct extends AppCompatActivity {
     EditText price;
     EditText stock;
     Uri path=null;
+    ProductProfileAdapter adpater=null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +44,7 @@ public class AddProduct extends AppCompatActivity {
         type = (EditText)findViewById(R.id.txtType);
         price = (EditText)findViewById(R.id.txtPrice);
         stock = (EditText)findViewById(R.id.txtStock);
+        adpater = (ProductProfileAdapter) ViewBag.get("product");
     }
     public void uploadPhoto(View v)
     {
@@ -130,6 +135,7 @@ public class AddProduct extends AppCompatActivity {
     class RegisterUser extends AsyncTask<Object,Void,Status>
     {
         ProgressDialog progressDialog ;
+        musicbeans.entities.Product p;
         public RegisterUser(){}
         public RegisterUser(Context context)
         {
@@ -143,8 +149,8 @@ public class AddProduct extends AppCompatActivity {
             double price = (Double) fields[2];
             int stock = (Integer) fields[3];
             byte[] photo =null;
-
-            status = Product.addProduct(path,new musicbeans.entities.Product(name,type,price,stock,photo));
+            p=new musicbeans.entities.Product(name,type,price,stock,photo);
+            status = Product.addProduct(path,p);
             return status;
         }
 
@@ -166,6 +172,8 @@ public class AddProduct extends AppCompatActivity {
             }
             if(status== musicbeans.dataaccess.Status.REGISTERED)
             {
+                p.setID((Integer)ViewBag.get("product_id"));
+                adpater.addProduct(p);
                 Toast.makeText(getApplicationContext(),"Registro correcto", Toast.LENGTH_SHORT).show();
                 path=null;
                 name.setText("");
